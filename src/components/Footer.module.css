@@ -1,0 +1,117 @@
+.footer {
+  background: var(--navy-950);
+  color: var(--silver-300);
+  font-size: 0.975rem;
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.footer a {
+  color: var(--silver-100);
+  text-decoration-color: rgba(238, 240, 243, 0.4);
+}
+.footer a:hover {
+  color: var(--white);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.25rem;
+  padding-bottom: 2.5rem;
+}
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1000px) {
+  .grid {
+    grid-template-columns: 1.4fr 1.1fr 1fr 0.8fr;
+  }
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin: 0;
+}
+
+.tagline {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--silver-400);
+  margin: 0.25rem 0 1rem;
+}
+
+.company p:last-child {
+  max-width: 34ch;
+}
+
+.heading {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--silver-400);
+  margin: 0 0 0.85rem;
+}
+
+.address {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.75rem;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-top: 1px solid rgba(195, 201, 210, 0.2);
+  font-size: 0.875rem;
+}
+.bottom p {
+  margin: 0;
+}
+
+.legal {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+
+.linkButton {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--silver-100);
+  text-decoration: underline;
+  text-decoration-color: rgba(238, 240, 243, 0.4);
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+.linkButton:hover {
+  color: var(--white);
+}

@@ -1,0 +1,38 @@
+.banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  background: var(--navy-950);
+  color: var(--silver-100);
+  border-top: 2px solid var(--silver-300);
+  box-shadow: 0 -8px 24px rgba(8, 21, 42, 0.25);
+}
+
+.inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 1.25rem var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+
+.text {
+  margin: 0;
+  max-width: 70ch;
+  font-size: 0.975rem;
+}
+
+.text a {
+  color: var(--white);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

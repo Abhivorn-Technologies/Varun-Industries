@@ -1,0 +1,134 @@
+.form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+@media (min-width: 640px) {
+  .row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-weight: 600;
+  color: var(--navy-900);
+}
+
+.optional {
+  font-weight: 400;
+  color: var(--steel-600);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--steel-600);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 160px;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 3px solid var(--navy-600);
+  outline-offset: 0;
+  border-color: var(--navy-600);
+}
+
+.field[data-invalid="true"] input,
+.field[data-invalid="true"] select,
+.field[data-invalid="true"] textarea {
+  border-color: var(--danger);
+  border-width: 2px;
+}
+
+.fieldHint {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--steel-700);
+}
+
+.counter {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--steel-600);
+  text-align: right;
+}
+
+.error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.consent {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.4rem 0.75rem;
+  align-items: start;
+  font-size: 0.975rem;
+}
+.consent input {
+  width: 22px;
+  height: 22px;
+  margin: 0.15rem 0 0;
+  accent-color: var(--navy-800);
+}
+.consent .error {
+  grid-column: 2;
+}
+
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.alert {
+  border: 2px solid var(--danger);
+  background: #fdf2f2;
+  color: var(--danger);
+  padding: 1rem 1.25rem;
+  font-weight: 500;
+}
+
+.success {
+  border: 2px solid var(--success);
+  background: #f1f8f3;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+.success h3 {
+  color: var(--success);
+}

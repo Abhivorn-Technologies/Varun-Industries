@@ -1,0 +1,68 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: start;
+}
+@media (min-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+}
+
+.formColumn {
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+.hint {
+  color: var(--steel-700);
+  font-size: 0.9375rem;
+}
+
+.details {
+  border: 1px solid var(--silver-300);
+  background: var(--silver-50);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.detailsTitle {
+  font-size: 1.5rem;
+}
+
+.list {
+  margin: 0 0 1.5rem;
+}
+.list > div {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--silver-300);
+}
+.list dt {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--steel-600);
+  margin-bottom: 0.25rem;
+}
+.list dd {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  overflow-wrap: anywhere;
+}
+.list address {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.4rem;
+}
+
+.checklist h3 {
+  font-size: 1.15rem;
+}
+.checklist p {
+  margin: 1rem 0 0;
+  font-size: 0.975rem;
+  overflow-wrap: anywhere;
+}
