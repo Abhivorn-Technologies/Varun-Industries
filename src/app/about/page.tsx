@@ -8,7 +8,7 @@ import logo from "../../../public/brand/varun-industries-logo.png";
 export const metadata = pageMetadata({
   title: "About Us",
   description:
-    "Established in 2021 in Hyderabad, Varun Industries manufactures precision components for the space, defence and telecom sectors. Read our vision and mission.",
+    "Established in 2013 in Hyderabad, Varun Industries manufactures precision components for the space, defence and telecom sectors. Read our vision and mission.",
   path: "/about",
 });
 
@@ -18,7 +18,7 @@ export default function AboutPage() {
       <PageHeader
         label="About Varun Industries"
         title="Precision components, built around your requirements"
-        intro="Established in 2021, we manufacture precision components for customers in the space, defence and telecommunications sectors."
+        intro="Established in 2013, we manufacture precision components for customers in the space, defence and telecommunications sectors."
       />
 
       <section className="section" aria-labelledby="about-title">
@@ -27,7 +27,7 @@ export default function AboutPage() {
             <h2 id="about-title">About us</h2>
             <p>
               At Varun Industries, we manufacture precision components for customers in the space, defence, and
-              telecommunications sectors. Established in 2021, we combine CNC machining expertise with a practical
+              telecommunications sectors. Established in 2013, we combine CNC machining expertise with a practical
               understanding of the accuracy, inspection, and traceability these applications demand. We work closely
               with our customers to understand their drawings, specifications, quantities, and production
               requirements, then coordinate the machining processes needed to manufacture their components.

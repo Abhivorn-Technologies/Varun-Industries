@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { galleryOrder } from "@/lib/photos";
 
 export const metadata = pageMetadata({
-  title: "Components",
+  title: "Precision Parts Gallery",
   description:
     "Photographs of precision components machined by Varun Industries in Hyderabad: housings, enclosures, covers, base plates, brackets and threaded rings.",
   path: "/components",
@@ -15,8 +15,8 @@ export default function ComponentsPage() {
   return (
     <>
       <PageHeader
-        label="Components"
-        title="Components from our shop"
+        label="Gallery"
+        title="Precision parts gallery"
         intro="A selection of housings, enclosures, plates and fixtures machined by Varun Industries."
       />
 

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
-import { Figure } from "@/components/Figure";
+import { Hero } from "@/components/home/Hero";
 import { baseOpenGraph } from "@/lib/metadata";
-import { photos } from "@/lib/photos";
 import { inHouse, machines, site, vendorProcesses } from "@/lib/site";
 
 const title = "Varun Industries | CNC Precision Machining in Hyderabad";
@@ -40,47 +39,7 @@ const workflow = [
 export default function HomePage() {
   return (
     <>
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="container hero__grid">
-          <div>
-            <p className="label">CNC precision machining · Hyderabad</p>
-            <h1 id="hero-title">Precision components for space, defence and telecommunications.</h1>
-            <p className="hero__text">
-              We manufacture components to your drawings, specifications and quantities, with CNC vertical milling,
-              drilling, tapping and engraving in-house and coordinated support for wire EDM, turning, plating and
-              other secondary operations.
-            </p>
-            <div className="hero__actions">
-              <Link href="/contact#enquiry" className="btn btn--light">
-                Request a quote
-              </Link>
-              <Link href="/capabilities" className="btn btn--outline-light">
-                See our capabilities
-              </Link>
-            </div>
-            <dl className="hero__meta">
-              <div>
-                <dt>Established</dt>
-                <dd>{site.founded}</dd>
-              </div>
-              <div>
-                <dt>In-house</dt>
-                <dd>Milling, drilling, tapping, engraving</dd>
-              </div>
-              <div>
-                <dt>Location</dt>
-                <dd>Prashanth Nagar, Hyderabad</dd>
-              </div>
-            </dl>
-          </div>
-          <Figure
-            photo={photos.housingRange}
-            number={1}
-            priority
-            sizes="(min-width: 1200px) 560px, (min-width: 960px) 46vw, 100vw"
-          />
-        </div>
-      </section>
+      <Hero />
 
       <section className="sectors" aria-label="Sectors served">
         <div className="container sectors__inner">
@@ -179,26 +138,6 @@ export default function HomePage() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="section section--tint" aria-labelledby="work-title">
-        <div className="container">
-          <div className="section-head">
-            <p className="label">04 · Components</p>
-            <h2 id="work-title">Components from our shop</h2>
-            <p>Housings, enclosures, plates and fixtures machined by Varun Industries.</p>
-          </div>
-          <div className="gallery gallery--three">
-            <Figure photo={photos.housing300} number={2} sizes="(min-width: 1040px) 380px, (min-width: 640px) 50vw, 100vw" />
-            <Figure photo={photos.flanged} number={3} sizes="(min-width: 1040px) 380px, (min-width: 640px) 50vw, 100vw" />
-            <Figure photo={photos.basePlates} number={4} sizes="(min-width: 1040px) 380px, (min-width: 640px) 50vw, 100vw" />
-          </div>
-          <p className="more-link">
-            <Link href="/components" className="text-link">
-              View all components
-            </Link>
-          </p>
         </div>
       </section>
 
