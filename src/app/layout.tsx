@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Sans_Condensed } from "next/font
 import { CookieConsent } from "@/components/CookieConsent";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { StructuredData } from "@/components/StructuredData";
 import { baseOpenGraph } from "@/lib/metadata";
 import { site } from "@/lib/site";
@@ -17,7 +18,7 @@ const plexSans = IBM_Plex_Sans({
 
 const plexCondensed = IBM_Plex_Sans_Condensed({
   subsets: ["latin"],
-  weight: ["600"],
+  weight: ["600", "700"],
   variable: "--font-plex-condensed",
   display: "swap",
 });
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="main">{children}</main>
         <Footer />
         <CookieConsent />
+        <ScrollReveal />
         <StructuredData />
       </body>
     </html>

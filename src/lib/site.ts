@@ -8,7 +8,7 @@ export const site = {
   name: "Varun Industries",
   legalName: "Varun Industries",
   tagline: "Precision Without Compromise",
-  founded: 2021,
+  founded: 2013,
   description:
     "Varun Industries is a CNC precision machining company in Hyderabad manufacturing components for the space, defence and telecommunications sectors.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, ""),
@@ -38,7 +38,7 @@ export const navigation = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/capabilities", label: "Capabilities" },
-  { href: "/components", label: "Components" },
+  { href: "/components", label: "Gallery" },
   { href: "/contact", label: "Contact" },
 ] as const;
 

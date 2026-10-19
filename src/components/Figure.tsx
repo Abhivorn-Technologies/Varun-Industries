@@ -11,7 +11,7 @@ type FigureProps = {
 /** A photograph framed like a figure on an engineering drawing. */
 export function Figure({ photo, number, sizes, priority = false }: FigureProps) {
   return (
-    <figure className="figure">
+    <figure className="figure" data-reveal="">
       <div className="figure__frame">
         <Image src={photo.src} alt={photo.alt} sizes={sizes} priority={priority} placeholder="blur" />
       </div>
