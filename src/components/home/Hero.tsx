@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { galleryOrder } from "@/lib/photos";
-import { site } from "@/lib/site";
+import { heroStats, site } from "@/lib/site";
 import styles from "./Hero.module.css";
 import { SpaceBackdrop } from "./SpaceBackdrop";
 
@@ -61,24 +61,39 @@ const features = [
 
 export function Hero() {
   return (
-    <section className={styles.hero} aria-labelledby="hero-title">
-      <SpaceBackdrop />
+    <>
+      <section className={styles.hero} aria-labelledby="hero-title">
+        <SpaceBackdrop />
 
       <div className={`container ${styles.content}`}>
-        <p className={styles.eyebrow}>
+        <p className={styles.eyebrow} data-reveal="">
           <span>
             <span>CNC precision machining</span> <span>Hyderabad · Est. {site.founded}</span>
           </span>
         </p>
-        <h1 id="hero-title" className={styles.title}>
-          Precision components <span className={styles.accent}>for a brighter tomorrow</span>
+        <h1 id="hero-title" className={styles.title} data-reveal="">
+          Precision components{" "}
+          <span className={styles.accent}>
+            <span className={styles.nowrap}>for a brighter</span> tomorrow
+          </span>
         </h1>
-        <p className={styles.text}>
+        <p className={styles.text} data-reveal="">
           We manufacture high-precision components for space, defence and telecommunications as per your drawings,
           specifications and quantities.
         </p>
 
-        <ul className={styles.features}>
+        <div className={styles.statsRow} aria-label="Company statistics" data-reveal="">
+          {heroStats.map((stat) => (
+            <div key={stat.label} className={styles.statItem}>
+              <span className={`${styles.statValue} ${stat.isText ? styles.statValueText : ""}`}>
+                {stat.value}
+              </span>
+              <span className={styles.statLabel}>{stat.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <ul className={styles.features} data-reveal="">
           {features.map((feature) => (
             <li key={feature.label}>
               {feature.icon}
@@ -87,9 +102,9 @@ export function Hero() {
           ))}
         </ul>
 
-        <div className={styles.actions}>
+        <div className={styles.actions} data-reveal="">
           <Link href="/contact#enquiry" className={styles.primary}>
-            Request a quote
+            Invite For Vendor Request
             <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
               <path d="M3 10h13M11 5l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -99,35 +114,36 @@ export function Hero() {
           </Link>
         </div>
       </div>
+    </section>
 
-      <div className={styles.gallery}>
-        <div className={`container ${styles.galleryHead}`}>
-          <h2 id="gallery-title" className={styles.galleryTitle}>
-            Precision parts gallery
-          </h2>
-          <Link href="/components" className={styles.galleryLink}>
-            View all parts
-          </Link>
-        </div>
-        <div className={styles.marquee}>
-          <ul className={styles.track}>
-            {[...galleryOrder, ...galleryOrder].map((photo, index) => {
-              const duplicate = index >= galleryOrder.length;
-              return (
-                <li key={index} className={styles.card} aria-hidden={duplicate || undefined}>
-                  <Image
-                    src={photo.src}
-                    alt={duplicate ? "" : photo.alt}
-                    sizes="(min-width: 900px) 360px, 260px"
-                    placeholder="blur"
-                    priority={index < 3}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+    <section className={styles.gallerySection} aria-labelledby="gallery-title">
+      <div className={`container ${styles.galleryHead}`} data-reveal="">
+        <h2 id="gallery-title" className={styles.galleryTitle}>
+          Precision parts gallery
+        </h2>
+        <Link href="/components" className={styles.galleryLink}>
+          View all parts
+        </Link>
+      </div>
+      <div className={styles.marquee} data-reveal="">
+        <ul className={styles.track}>
+          {[...galleryOrder, ...galleryOrder].map((photo, index) => {
+            const duplicate = index >= galleryOrder.length;
+            return (
+              <li key={index} className={styles.card} aria-hidden={duplicate || undefined}>
+                <Image
+                  src={photo.src}
+                  alt={duplicate ? "" : photo.alt}
+                  sizes="(min-width: 900px) 360px, 260px"
+                  placeholder="blur"
+                  priority={index < 3}
+                />
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
+  </>
   );
 }

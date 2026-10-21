@@ -3,13 +3,60 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-const SELECTOR = ".section .container > *, .cta-band__inner > *, .page-header .container > *, [data-reveal]";
+const SELECTOR = [
+  // Hero section elements
+  "[class*='Hero_content'] > *",
+  "[class*='hero'] [class*='content'] > *",
+  "[class*='Hero_galleryHead']",
+  "[class*='Hero_marquee']",
+  
+  // Page headers (inner pages)
+  ".page-header .container > *",
+  
+  // Section headers & titles
+  ".section-head > *",
+  
+  // Split layouts and columns
+  ".split > *",
+  "[class*='layout'] > *",
+  "[class*='formColumn'] > *",
+  "[class*='details']",
+  
+  // Lists and process steps
+  ".process-list > li",
+  ".spec-list > li",
+  ".spec-table tbody tr",
+  ".tick-list > li",
+  ".steps > li",
+  ".values > li",
+  
+  // Gallery and figure items
+  ".gallery > .figure",
+  ".figure",
+  
+  // Sectors & CTA band
+  ".sectors__inner",
+  ".cta-band__inner > *",
+  
+  // Footer
+  ".footer .grid > *",
+  ".footer .bottom",
+  
+  // Prose text blocks (About, legal)
+  ".prose > p",
+  ".prose > h2",
+  ".prose > h3",
+  ".prose > ul",
+  
+  // Explicit attribute
+  "[data-reveal]",
+].join(", ");
 
 /**
- * Fades content up as it scrolls into view. Content is only hidden once this
- * script is running (via the `reveal-ready` class on <html>), so the page is
- * fully readable without JavaScript, and nothing animates for visitors who
- * prefer reduced motion.
+ * Runs smooth float-up entrance animations on page load/refresh,
+ * and continuously on scroll (both scrolling down and scrolling up).
+ * Off-screen elements reset cleanly so re-entering the viewport
+ * triggers the animation again.
  */
 export function ScrollReveal() {
   const pathname = usePathname();
@@ -19,37 +66,60 @@ export function ScrollReveal() {
     if (!("IntersectionObserver" in window)) return;
 
     const root = document.documentElement;
-    const targets = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR)).filter(
-      (el) => !el.dataset.revealed,
-    );
+    const targets = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR));
+
+    targets.forEach((el) => {
+      el.dataset.reveal = "";
+      delete el.dataset.revealed;
+
+      // Calculate stagger within parent container
+      const parent = el.parentElement;
+      let siblingIndex = 0;
+      if (parent) {
+        const siblings = Array.from(parent.children).filter(
+          (c) => c.hasAttribute("data-reveal") || c.matches(SELECTOR)
+        );
+        siblingIndex = siblings.indexOf(el);
+      }
+      const delay = Math.max(0, Math.min(siblingIndex >= 0 ? siblingIndex : 0, 5) * 70);
+      el.style.setProperty("--reveal-delay", `${delay}ms`);
+    });
+
+    root.classList.add("reveal-ready");
+    // Force style flush so browser computes initial opacity: 0 and translateY(24px)
+    void root.offsetHeight;
 
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
           const el = entry.target as HTMLElement;
-          el.dataset.revealed = "true";
-          observer.unobserve(el);
+          if (entry.isIntersecting) {
+            // Animate in when entering viewport (scrolling down, scrolling up, or on refresh)
+            el.dataset.revealed = "true";
+          } else {
+            // Reset when safely beyond viewport edges so it can re-animate when scrolled back
+            const rect = entry.boundingClientRect;
+            const isOutside =
+              rect.bottom < -20 || rect.top > window.innerHeight + 20;
+            if (isOutside) {
+              delete el.dataset.revealed;
+            }
+          }
         }
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+      {
+        threshold: 0,
+        rootMargin: "0px 0px -20px 0px",
+      }
     );
 
-    const viewportHeight = window.innerHeight;
-    targets.forEach((el, index) => {
-      // Content already on screen stays put; only content below the fold animates in.
-      if (el.getBoundingClientRect().top < viewportHeight) {
-        el.dataset.revealed = "true";
-        return;
-      }
-      // Stagger siblings slightly so grouped items arrive in sequence.
-      el.style.setProperty("--reveal-delay", `${Math.min(index % 4, 3) * 80}ms`);
-      el.dataset.reveal = el.dataset.reveal ?? "";
-      observer.observe(el);
+    requestAnimationFrame(() => {
+      targets.forEach((el) => observer.observe(el));
     });
-    root.classList.add("reveal-ready");
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, [pathname]);
 
   return null;

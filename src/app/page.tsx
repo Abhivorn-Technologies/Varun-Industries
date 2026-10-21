@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
 import { Hero } from "@/components/home/Hero";
+import { ManufacturingProcess } from "@/components/home/ManufacturingProcess";
 import { baseOpenGraph } from "@/lib/metadata";
-import { inHouse, machines, site, vendorProcesses } from "@/lib/site";
+import { inHouse, site, vendorProcesses } from "@/lib/site";
 
 const title = "Varun Industries | CNC Precision Machining in Hyderabad";
 const description =
@@ -16,25 +17,6 @@ export const metadata: Metadata = {
   openGraph: { ...baseOpenGraph, title, description, url: "/" },
   twitter: { card: "summary_large_image", title, description, images: ["/og-image.jpg"] },
 };
-
-const workflow = [
-  {
-    title: "Understand the requirement",
-    text: "We go through your drawings, specifications, quantities and production requirements with you.",
-  },
-  {
-    title: "Plan the operations",
-    text: "We identify the machining and secondary operations the component needs, in-house and through partners.",
-  },
-  {
-    title: "Machine and coordinate",
-    text: "We machine the component on our CNC milling centres and coordinate any additional processes with specialist vendors.",
-  },
-  {
-    title: "Inspect and document",
-    text: "Inspection procedures and systematic production documentation are applied throughout the production cycle.",
-  },
-];
 
 export default function HomePage() {
   return (
@@ -74,27 +56,16 @@ export default function HomePage() {
           </div>
           <div>
             <div className="panel panel--tint sticky-aside">
-              <table className="spec-table">
-                <caption>Machining centres</caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Machine</th>
-                    <th scope="col">Type</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {machines.map((machine) => (
-                    <tr key={machine.name}>
-                      <th scope="row">{machine.name}</th>
-                      <td>{machine.type}</td>
-                    </tr>
-                  ))}
-                  <tr>
-                    <th scope="row">Dedicated equipment</th>
-                    <td>Drilling, tapping and engraving</td>
-                  </tr>
-                </tbody>
-              </table>
+              <p className="spec-list__title">Machining centres</p>
+              <ul className="spec-list">
+                <li className="spec-list__item">
+                  CNC vertical milling centre
+                </li>
+                <li className="spec-list__item">
+                  <div className="spec-list__name">Dedicated equipment</div>
+                  <p className="spec-list__desc">Drilling, tapping and engraving</p>
+                </li>
+              </ul>
               <p className="more-link">
                 <Link href="/capabilities" className="text-link">
                   Full capabilities
@@ -124,22 +95,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="workflow-title">
-        <div className="container">
-          <div className="section-head">
-            <p className="label">03 · How we work</p>
-            <h2 id="workflow-title">From your drawing to a documented component</h2>
-          </div>
-          <ol className="steps">
-            {workflow.map((step) => (
-              <li key={step.title}>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <ManufacturingProcess />
 
       <CtaBand />
     </>

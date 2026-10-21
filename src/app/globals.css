@@ -21,15 +21,17 @@
   --danger: #a4161a;
   --success: #1d6b3a;
 
-  --font-sans: var(--font-plex-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-plex-condensed), var(--font-plex-sans), "Arial Narrow", sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-manrope: var(--font-manrope), "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-manrope);
+  --font-poppins: var(--font-manrope);
+  --font-mono: var(--font-manrope);
 
   --container: 1200px;
   --gutter: clamp(1rem, 4vw, 2.5rem);
   --section: clamp(3.5rem, 8vw, 6.5rem);
   --radius: 2px;
-  --header-h: 76px;
+  --header-h: 74px;
 }
 
 *,
@@ -47,11 +49,20 @@ body {
   margin: 0;
   background: var(--white);
   color: var(--ink);
-  font-family: var(--font-sans);
+  font-family: var(--font-manrope);
   font-size: 1.0625rem;
+  font-weight: 400;
   line-height: 1.65;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
 }
 
 img {
@@ -63,11 +74,12 @@ img {
 h1,
 h2,
 h3,
-h4 {
-  font-family: var(--font-display);
-  font-weight: 600;
+h4,
+h5,
+h6 {
+  font-family: var(--font-manrope);
   line-height: 1.15;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.015em;
   margin: 0 0 0.75rem;
   color: var(--navy-900);
   text-wrap: balance;
@@ -75,16 +87,36 @@ h4 {
 
 h1 {
   font-size: clamp(2.25rem, 5.2vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 h2 {
   font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
 }
 h3 {
   font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+h5,
+h6 {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
 p {
   margin: 0 0 1rem;
+  font-weight: 400;
 }
 
 a {
@@ -168,16 +200,17 @@ a:hover {
   color: var(--white);
 }
 
-/* Mono label used like a drawing callout: "01 — In-house" */
+/* Label used like a drawing callout: "01 — In-house" */
 .label {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
   font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
   color: var(--steel-600);
   margin: 0 0 1rem;
 }
@@ -193,7 +226,10 @@ a:hover {
 }
 
 .lead {
+  font-family: var(--font-manrope);
   font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.6;
   color: var(--steel-700);
   max-width: 62ch;
 }
@@ -217,16 +253,31 @@ a:hover {
   padding: 0.75rem 1.5rem;
   border: 1px solid transparent;
   border-radius: var(--radius);
-  font-family: var(--font-sans);
+  font-family: var(--font-manrope);
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.2;
   text-decoration: none;
   cursor: pointer;
   transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    border-color 0.15s ease;
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px -2px rgba(10, 25, 47, 0.18);
+  }
+  .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px -1px rgba(10, 25, 47, 0.12);
+  }
+  .btn--primary:hover {
+    box-shadow: 0 6px 20px -2px rgba(13, 31, 74, 0.32);
+  }
 }
 .btn--primary {
   background: var(--navy-800);
@@ -271,6 +322,14 @@ a:hover {
 .text-link {
   font-weight: 600;
   color: var(--navy-700);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.text-link:hover {
+  color: var(--navy-900);
+  transform: translateX(3px);
 }
 .text-link::after {
   content: " \2192";
@@ -333,8 +392,9 @@ a:hover {
   gap: 1rem 1.5rem;
 }
 .hero__meta dt {
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
   font-size: 0.75rem;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--silver-400);
@@ -342,6 +402,7 @@ a:hover {
 .hero__meta dd {
   margin: 0.25rem 0 0;
   color: var(--white);
+  font-family: var(--font-manrope);
   font-weight: 500;
 }
 
@@ -355,6 +416,11 @@ a:hover {
   padding: 10px;
   border: 1px solid var(--silver-300);
   background: var(--white);
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 .figure__frame::before,
 .figure__frame::after {
@@ -364,6 +430,7 @@ a:hover {
   height: 18px;
   border-color: var(--navy-700);
   border-style: solid;
+  transition: border-color 0.3s ease;
 }
 .figure__frame::before {
   top: -1px;
@@ -379,18 +446,33 @@ a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .figure:hover .figure__frame {
+    transform: translateY(-3px);
+    border-color: var(--navy-600);
+    box-shadow: 0 12px 28px -6px rgba(10, 25, 47, 0.12);
+  }
+  .figure:hover .figure__frame img {
+    transform: scale(1.035);
+  }
 }
 .figure figcaption {
   display: flex;
   gap: 0.75rem;
   margin-top: 0.75rem;
+  font-family: var(--font-manrope);
   font-size: 0.9375rem;
+  font-weight: 400;
   color: var(--steel-700);
   line-height: 1.45;
 }
 .figure figcaption span:first-child {
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
   font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
   color: var(--navy-700);
   white-space: nowrap;
   padding-top: 0.1em;
@@ -426,8 +508,9 @@ a:hover {
   padding-bottom: 1.25rem;
 }
 .sectors__title {
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
   font-size: 0.8125rem;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--silver-400);
@@ -442,9 +525,9 @@ a:hover {
   gap: 0.5rem 2.5rem;
 }
 .sectors li {
-  font-family: var(--font-display);
+  font-family: var(--font-manrope);
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--white);
 }
 
@@ -485,16 +568,26 @@ a:hover {
   gap: 1rem;
   padding: 1.25rem 0;
   border-bottom: 1px solid var(--silver-300);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .process-list li:hover {
+    transform: translateX(4px);
+  }
 }
 .process-list .index {
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
   font-size: 0.875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
   color: var(--navy-600);
   padding-top: 0.2em;
 }
 .process-list h3 {
+  font-family: var(--font-manrope);
   margin-bottom: 0.25rem;
   font-size: 1.25rem;
+  font-weight: 700;
 }
 .process-list p {
   margin: 0;
@@ -504,12 +597,15 @@ a:hover {
 .spec-table {
   width: 100%;
   border-collapse: collapse;
+  font-family: var(--font-manrope);
   font-size: 1rem;
+  font-variant-numeric: tabular-nums;
 }
 .spec-table caption {
   text-align: left;
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
   font-size: 0.8125rem;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--steel-600);
@@ -523,17 +619,67 @@ a:hover {
   vertical-align: top;
 }
 .spec-table thead th {
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--steel-600);
   border-bottom: 2px solid var(--navy-800);
 }
 .spec-table tbody th {
+  font-family: var(--font-manrope);
   font-weight: 600;
   color: var(--navy-900);
+}
+.spec-table td {
+  font-family: var(--font-manrope);
+  font-weight: 400;
+}
+
+.spec-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-manrope);
+}
+.spec-list__title {
+  font-family: var(--font-manrope);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--steel-600);
+  margin: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--navy-800);
+}
+.spec-list__item {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--silver-300);
+  font-family: var(--font-manrope);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy-900);
+  line-height: 1.45;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .spec-list__item:hover {
+    transform: translateX(4px);
+    color: var(--navy-700);
+  }
+}
+.spec-list__name {
+  font-weight: 600;
+  color: var(--navy-900);
+}
+.spec-list__desc {
+  margin: 0.25rem 0 0;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--steel-700);
+  line-height: 1.45;
 }
 
 .tick-list {
@@ -574,6 +720,17 @@ a:hover {
   border: 1px solid var(--silver-300);
   background: var(--white);
   padding: clamp(1.25rem, 3vw, 2rem);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .panel:hover {
+    border-color: var(--navy-600);
+    box-shadow: 0 8px 24px -4px rgba(10, 25, 47, 0.08);
+    transform: translateY(-2px);
+  }
 }
 .panel--tint {
   background: var(--silver-50);
@@ -619,18 +776,23 @@ a:hover {
 .steps li::before {
   content: counter(step, decimal-leading-zero);
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
   font-size: 0.875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
   color: var(--navy-600);
   margin-bottom: 0.75rem;
 }
 .steps h3 {
+  font-family: var(--font-manrope);
   font-size: 1.2rem;
+  font-weight: 700;
 }
 .steps p {
   margin: 0;
   color: var(--steel-700);
   font-size: 1rem;
+  font-weight: 400;
 }
 
 /* ---------- Gallery ---------- */
@@ -679,18 +841,35 @@ a:hover {
 .page-header .container {
   position: relative;
 }
+@keyframes pageHeaderFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .page-header h1 {
   color: var(--white);
   font-size: clamp(2rem, 4.4vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
   max-width: 22ch;
+  animation: pageHeaderFadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
 .page-header p:not(.label) {
   max-width: 64ch;
   font-size: clamp(1.0625rem, 1.5vw, 1.2rem);
+  font-weight: 400;
   margin: 0;
+  animation: pageHeaderFadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
 }
 .page-header .label {
   color: var(--silver-300);
+  animation: pageHeaderFadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.02s both;
 }
 
 /* ---------- Prose (About, legal pages) ---------- */
@@ -700,12 +879,15 @@ a:hover {
 }
 .prose h2 {
   font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+  font-weight: 700;
   margin-top: 2.75rem;
 }
 .prose h2:first-child {
   margin-top: 0;
 }
 .prose h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
   margin-top: 2rem;
 }
 .prose ul {
@@ -716,8 +898,9 @@ a:hover {
   margin-bottom: 0.4rem;
 }
 .prose .updated {
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
   font-size: 0.875rem;
+  font-weight: 500;
   color: var(--steel-600);
 }
 
@@ -734,10 +917,19 @@ a:hover {
 .values li {
   padding: 1.25rem 1rem;
   text-align: center;
-  font-family: var(--font-display);
+  font-family: var(--font-manrope);
   font-size: clamp(1.125rem, 2.4vw, 1.5rem);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--navy-900);
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .values li:hover {
+    background-color: var(--silver-100);
+    transform: translateY(-2px);
+  }
 }
 .values li + li {
   border-left: 1px solid var(--silver-300);
@@ -762,6 +954,7 @@ a:hover {
 }
 .cta-band h2 {
   color: var(--white);
+  font-weight: 800;
 }
 .cta-band p {
   margin: 0;
@@ -783,9 +976,12 @@ a:hover {
   padding: clamp(4rem, 10vw, 8rem) 0;
 }
 .not-found__code {
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--navy-600);
   letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
 }
 .not-found ul {
   padding-left: 1.25rem;
@@ -806,11 +1002,46 @@ a:hover {
 /* ---------- Scroll reveal (see components/ScrollReveal.tsx) ---------- */
 
 .reveal-ready [data-reveal]:not([data-revealed]) {
-  opacity: 0;
-  transform: translateY(28px);
+  opacity: 0 !important;
+  transform: translateY(24px) !important;
+  animation: none !important;
+  transition: none !important;
+  will-change: opacity, transform;
 }
-.reveal-ready [data-reveal] {
+.reveal-ready [data-reveal][data-revealed="true"] {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  animation: none !important;
   transition:
-    opacity 0.7s ease var(--reveal-delay, 0ms),
-    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms);
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+
+/* ---------- Accessibility & Reduced Motion ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--navy-600);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-ready [data-reveal]:not([data-revealed]) {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .page-header h1,
+  .page-header p:not(.label),
+  .page-header .label {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

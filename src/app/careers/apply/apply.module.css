@@ -1,0 +1,499 @@
+/* ==========================================================================
+   Varun Industries — Career Application Form Styling
+   Manrope typography, precision engineering visual theme
+   ========================================================================== */
+
+.page {
+  background: var(--silver-50);
+  min-height: calc(100vh - var(--header-h));
+  padding-bottom: clamp(4rem, 8vw, 6rem);
+}
+
+.headerSection {
+  background: var(--navy-900);
+  color: var(--silver-200);
+  padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(2.5rem, 5vw, 3.5rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.headerSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(195, 201, 210, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(195, 201, 210, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+.headerContainer {
+  position: relative;
+  max-width: 840px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-manrope);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #7db1fc;
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.backLink:hover {
+  color: var(--white);
+  transform: translateX(-3px);
+}
+
+.title {
+  color: var(--white);
+  font-family: var(--font-manrope);
+  font-size: clamp(2.2rem, 4.4vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.85rem;
+}
+
+.intro {
+  font-family: var(--font-manrope);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  font-weight: 400;
+  color: var(--silver-300);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 62ch;
+}
+
+/* ---------- Form Container & Card ---------- */
+
+.formContainer {
+  max-width: 840px;
+  margin: -1.75rem auto 0;
+  position: relative;
+  z-index: 2;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--silver-300);
+  border-radius: 4px;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  box-shadow: 0 16px 36px -8px rgba(8, 21, 42, 0.1);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 680px) {
+  .row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.field label {
+  font-family: var(--font-manrope);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--navy-900);
+}
+
+.field label span[aria-hidden="true"] {
+  color: var(--danger);
+  margin-left: 0.2rem;
+}
+
+.optional {
+  font-weight: 400;
+  font-size: 0.8125rem;
+  color: var(--steel-600);
+  margin-left: 0.35rem;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 0.95rem;
+  border: 1px solid var(--silver-400);
+  border-radius: 4px;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-manrope);
+  font-size: 1rem;
+  font-weight: 400;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--navy-700);
+}
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid var(--navy-600);
+  outline-offset: 1px;
+  border-color: var(--navy-600);
+}
+
+.select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231a3a66' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.5;
+}
+
+.field[data-invalid="true"] .input,
+.field[data-invalid="true"] .select,
+.field[data-invalid="true"] .textarea {
+  border-color: var(--danger);
+  background-color: #fffafb;
+}
+
+.errorText {
+  font-family: var(--font-manrope);
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--danger);
+  margin: 0;
+}
+
+
+/* ---------- Consent & Actions ---------- */
+
+.consentBox {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.4rem 0.75rem;
+  align-items: start;
+  font-family: var(--font-manrope);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--steel-700);
+  margin-top: 0.5rem;
+}
+
+.consentBox input {
+  width: 20px;
+  height: 20px;
+  margin-top: 0.15rem;
+  accent-color: var(--navy-800);
+  cursor: pointer;
+}
+
+.consentBox a {
+  color: var(--navy-700);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.submitBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 52px;
+  padding: 0.85rem 2rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--navy-800);
+  color: var(--white);
+  font-family: var(--font-manrope);
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(11, 27, 51, 0.2);
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease;
+}
+
+.submitBtn:hover:not([disabled]) {
+  background: var(--navy-950);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(11, 27, 51, 0.3);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.submitBtn[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ---------- WhatsApp Submit Button & Notes ---------- */
+
+.whatsappSubmitBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 54px;
+  width: 100%;
+  padding: 0.95rem 2rem;
+  border: none;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: var(--white);
+  font-family: var(--font-manrope);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(18, 140, 126, 0.28);
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.whatsappSubmitBtn:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(18, 140, 126, 0.38);
+}
+
+.whatsappSubmitBtn:active {
+  transform: translateY(0);
+}
+
+.whatsappBtnIcon {
+  flex-shrink: 0;
+}
+
+.whatsappNote {
+  font-family: var(--font-manrope);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--navy-900);
+  text-align: center;
+  margin: 0.5rem 0 0;
+}
+
+.whatsappInstruction {
+  font-family: var(--font-manrope);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--steel-600);
+  text-align: center;
+  margin: 0.15rem 0 0;
+}
+
+.whatsappInstruction strong {
+  color: var(--navy-950);
+  font-weight: 700;
+}
+
+/* ---------- WhatsApp Opened Status Banner ---------- */
+
+.whatsappBanner {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.08);
+}
+
+.whatsappBannerHead {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.whatsappBadgeIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #25D366;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+}
+
+.bannerTitle {
+  font-family: var(--font-manrope);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #14532d;
+  margin: 0;
+}
+
+.bannerSubtitle {
+  font-family: var(--font-manrope);
+  font-size: 0.86rem;
+  color: #166534;
+  margin: 0.15rem 0 0;
+}
+
+.bannerContent {
+  font-family: var(--font-manrope);
+  font-size: 0.92rem;
+  color: #15803d;
+  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.bannerContent p {
+  margin: 0;
+}
+
+.bannerContent strong {
+  color: #14532d;
+}
+
+.bannerActionRow {
+  margin-top: 0.4rem;
+}
+
+.bannerReopenBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  background: #15803d;
+  color: #ffffff;
+  font-family: var(--font-manrope);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.bannerReopenBtn:hover {
+  background: #166534;
+  transform: translateY(-1px);
+}
+
+.alertBox {
+  border: 1px solid var(--danger);
+  background: #fdf2f2;
+  color: var(--danger);
+  padding: 0.9rem 1.25rem;
+  border-radius: 4px;
+  font-family: var(--font-manrope);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* ---------- Success Confirmation State ---------- */
+
+.successCard {
+  background: var(--white);
+  border: 1px solid #c2e2cc;
+  border-radius: 4px;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  box-shadow: 0 16px 36px -8px rgba(8, 21, 42, 0.08);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #e7f7ed;
+  color: var(--success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+.successTitle {
+  font-family: var(--font-manrope);
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 800;
+  color: var(--navy-950);
+  margin: 0;
+}
+
+.successText {
+  font-family: var(--font-manrope);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--steel-700);
+  max-width: 58ch;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.refBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--silver-100);
+  border: 1px solid var(--silver-300);
+  border-radius: 4px;
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-manrope);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  font-variant-numeric: tabular-nums;
+}
+
+.successActions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+}

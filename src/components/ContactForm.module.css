@@ -21,11 +21,13 @@
 }
 
 .field label {
-  font-weight: 600;
+  font-family: var(--font-manrope);
+  font-weight: 500;
   color: var(--navy-900);
 }
 
 .optional {
+  font-family: var(--font-manrope);
   font-weight: 400;
   color: var(--steel-600);
 }
@@ -40,8 +42,15 @@
   border-radius: var(--radius);
   background: var(--white);
   color: var(--ink);
-  font: inherit;
+  font-family: var(--font-manrope);
   font-size: 1rem;
+  font-weight: 400;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-color: var(--navy-800);
 }
 
 .field textarea {
@@ -66,20 +75,25 @@
 
 .fieldHint {
   margin: 0;
+  font-family: var(--font-manrope);
   font-size: 0.9375rem;
+  font-weight: 400;
   color: var(--steel-700);
 }
 
 .counter {
   margin: 0;
-  font-family: var(--font-mono);
+  font-family: var(--font-manrope);
   font-size: 0.8125rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
   color: var(--steel-600);
   text-align: right;
 }
 
 .error {
   margin: 0;
+  font-family: var(--font-manrope);
   color: var(--danger);
   font-size: 0.9375rem;
   font-weight: 500;
@@ -90,7 +104,9 @@
   grid-template-columns: auto minmax(0, 1fr);
   gap: 0.4rem 0.75rem;
   align-items: start;
+  font-family: var(--font-manrope);
   font-size: 0.975rem;
+  font-weight: 400;
 }
 .consent input {
   width: 22px;
