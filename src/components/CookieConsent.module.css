@@ -8,6 +8,18 @@
   color: var(--silver-100);
   border-top: 2px solid var(--silver-300);
   box-shadow: 0 -8px 24px rgba(8, 21, 42, 0.25);
+  animation: bannerSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes bannerSlideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .inner {
@@ -24,7 +36,9 @@
 .text {
   margin: 0;
   max-width: 70ch;
+  font-family: var(--font-manrope);
   font-size: 0.975rem;
+  font-weight: 400;
 }
 
 .text a {

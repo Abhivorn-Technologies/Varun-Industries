@@ -30,6 +30,16 @@ export const site = {
   values: ["Precision", "Quality", "Trust"],
 } as const;
 
+/**
+ * Hero statistics row.
+ * Edit figures or labels here if company records require adjustments before publishing.
+ */
+export const heroStats = [
+  { value: "25+", label: "Clients", isText: false },
+  { value: "1,000+", label: "Projects", isText: false },
+  { value: "Fast Turnaround", label: "Quick Delivery", isText: true },
+] as const;
+
 export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   "Plot No. 49, 5-5-35/211A, Shakthipuram, Prashanth Nagar, Hyderabad, Telangana 500072",
 )}`;
@@ -39,8 +49,15 @@ export const navigation = [
   { href: "/about", label: "About" },
   { href: "/capabilities", label: "Capabilities" },
   { href: "/components", label: "Gallery" },
+  { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
 ] as const;
+
+/**
+ * Target destination for "Apply for a Position" on the Careers page.
+ * Can be configured to a mailto link, form anchor, or dedicated careers endpoint.
+ */
+export const careersApplicationHref = "/careers/apply";
 
 export const legalNavigation = [
   { href: "/privacy-policy", label: "Privacy Policy" },
@@ -66,9 +83,23 @@ export const inHouse = [
   },
 ] as const;
 
-export const machines = [
-  { name: "BFW XTRON 544", type: "CNC vertical milling centre" },
-  { name: "BFW Chandra", type: "CNC vertical milling centre" },
+export const equipmentList = [
+  {
+    name: "CNC vertical milling centre",
+    usedFor: "Used for machining housings, plates, pockets and profiles.",
+  },
+  {
+    name: "Drilling equipment",
+    usedFor: "Used for producing accurate holes and hole patterns.",
+  },
+  {
+    name: "Tapping equipment",
+    usedFor: "Used for creating internal threads in drilled holes.",
+  },
+  {
+    name: "Engraving equipment",
+    usedFor: "Used for engraving part identification and markings.",
+  },
 ] as const;
 
 export const vendorProcesses = [

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
-import { Figure } from "@/components/Figure";
 import { PageHeader } from "@/components/PageHeader";
+import { CncWorkshopFigure } from "./CncWorkshopFigure";
+import { InspectionComposition } from "./InspectionComposition";
+import styles from "./capabilities.module.css";
 import { pageMetadata } from "@/lib/metadata";
-import { photos } from "@/lib/photos";
-import { inHouse, machines, site, vendorProcesses } from "@/lib/site";
+import { equipmentList, inHouse, site, vendorProcesses } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Capabilities",
@@ -23,7 +24,7 @@ export default function CapabilitiesPage() {
       />
 
       <section className="section" aria-labelledby="inhouse-title">
-        <div className="container split split--wide-left">
+        <div className={`container ${styles.inhouseSplit}`}>
           <div>
             <p className="label">In-house services</p>
             <h2 id="inhouse-title">CNC vertical milling, drilling, tapping and engraving</h2>
@@ -39,7 +40,7 @@ export default function CapabilitiesPage() {
               ))}
             </ol>
           </div>
-          <Figure photo={photos.multiCavity} number={1} sizes="(min-width: 900px) 480px, 100vw" />
+          <CncWorkshopFigure />
         </div>
       </section>
 
@@ -54,35 +55,15 @@ export default function CapabilitiesPage() {
             </p>
           </div>
           <div className="panel">
-            <table className="spec-table">
-              <caption>Equipment list</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Equipment</th>
-                  <th scope="col">Used for</th>
-                </tr>
-              </thead>
-              <tbody>
-                {machines.map((machine) => (
-                  <tr key={machine.name}>
-                    <th scope="row">{machine.name}</th>
-                    <td>{machine.type}</td>
-                  </tr>
-                ))}
-                <tr>
-                  <th scope="row">Drilling equipment</th>
-                  <td>Dedicated drilling</td>
-                </tr>
-                <tr>
-                  <th scope="row">Tapping equipment</th>
-                  <td>Dedicated tapping</td>
-                </tr>
-                <tr>
-                  <th scope="row">Engraving equipment</th>
-                  <td>Dedicated engraving</td>
-                </tr>
-              </tbody>
-            </table>
+            <p className="spec-list__title">Equipment list</p>
+            <ul className="spec-list">
+              {equipmentList.map((item) => (
+                <li key={item.name} className="spec-list__item">
+                  <div className="spec-list__name">{item.name}</div>
+                  <p className="spec-list__desc">{item.usedFor}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
@@ -108,7 +89,7 @@ export default function CapabilitiesPage() {
 
       <section className="section" aria-labelledby="quality-title">
         <div className="container split split--center">
-          <Figure photo={photos.enclosureCovers} number={2} sizes="(min-width: 900px) 540px, 100vw" />
+          <InspectionComposition />
           <div>
             <p className="label">Inspection and documentation</p>
             <h2 id="quality-title">Careful inspection, systematic records</h2>

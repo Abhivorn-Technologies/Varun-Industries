@@ -34,7 +34,7 @@ export function Header() {
     <header className={styles.header}>
       <div className={`container ${styles.bar}`}>
         <Link href="/" className={styles.brand} aria-label={`${site.name}, home`}>
-          <Image src={emblem} alt="" width={60} height={48} priority className={styles.emblem} />
+          <Image src={emblem} alt="Varun Industries" width={68} height={54} priority className={styles.emblem} />
           <span className={styles.wordmark}>
             <span className={styles.name}>Varun Industries</span>
             <span className={styles.tagline}>{site.tagline}</span>
@@ -63,7 +63,7 @@ export function Header() {
             ))}
           </ul>
           <Link href="/contact#enquiry" className={`btn btn--primary ${styles.cta}`}>
-            Request a quote
+            Invite For Vendor Request
           </Link>
         </nav>
       </div>
