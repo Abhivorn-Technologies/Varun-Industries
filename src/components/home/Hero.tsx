@@ -78,7 +78,7 @@ export function Hero() {
           </span>
         </h1>
         <p className={styles.text} data-reveal="">
-          We manufacture high-precision components for space, defence and telecommunications as per your drawings,
+          We manufacture high-precision components for space, defence, telecommunications and pharma as per your drawings,
           specifications and quantities.
         </p>
 

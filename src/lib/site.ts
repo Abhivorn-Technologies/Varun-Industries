@@ -10,10 +10,11 @@ export const site = {
   tagline: "Precision Without Compromise",
   founded: 2013,
   description:
-    "Varun Industries is a CNC precision machining company in Hyderabad manufacturing components for the space, defence and telecommunications sectors.",
+    "Varun Industries is a CNC precision machining company in Hyderabad manufacturing components for the space, defence, telecommunications and pharma sectors.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, ""),
   contactPerson: "V Janardhan",
   email: "varunindustries2013@gmail.com",
+  whatsapp: { display: "+91 63000 26605", number: "916300026605" },
   phones: [
     { display: "+91 77949 87472", tel: "+917794987472", whatsapp: "917794987472" },
     { display: "+91 73867 93251", tel: "+917386793251", whatsapp: "917386793251" },
@@ -28,6 +29,10 @@ export const site = {
   },
   sectors: ["Space", "Defence", "Telecom", "Pharma"],
   values: ["Precision", "Quality", "Trust"],
+  geo: {
+    latitude: 17.4819444,
+    longitude: 78.42625,
+  },
 } as const;
 
 /**
@@ -40,9 +45,8 @@ export const heroStats = [
   { value: "Fast Turnaround", label: "Quick Delivery", isText: true },
 ] as const;
 
-export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-  "Plot No. 49, 5-5-35/211A, Shakthipuram, Prashanth Nagar, Hyderabad, Telangana 500072",
-)}`;
+export const mapsUrl =
+  "https://www.google.com/maps/place//@17.4819453,78.4261348,21z/data=!4m6!1m5!3m4!2zMTfCsDI4JzU1LjAiTiA3OMKwMjUnMzQuNSJF!8m2!3d17.4819444!4d78.42625?hl=en&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D";
 
 export const navigation = [
   { href: "/", label: "Home" },

@@ -94,7 +94,7 @@ export default function CapabilitiesPage() {
             <p className="label">Inspection and documentation</p>
             <h2 id="quality-title">Careful inspection, systematic records</h2>
             <p className="lead">
-              Space, defence and telecommunications components demand accuracy, inspection and traceability.
+              Space, defence, telecommunications and pharma components demand accuracy, inspection and traceability.
             </p>
             <p>
               We place strong emphasis on careful inspection and systematic production documentation throughout the

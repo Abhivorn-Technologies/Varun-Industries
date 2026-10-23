@@ -8,7 +8,7 @@ import { inHouse, site, vendorProcesses } from "@/lib/site";
 
 const title = "Varun Industries | CNC Precision Machining in Hyderabad";
 const description =
-  "CNC precision machining in Hyderabad for space, defence and telecom. Components made to your drawings with in-house milling, drilling, tapping and engraving.";
+  "CNC precision machining in Hyderabad for space, defence, telecom and pharma. Components made to your drawings with in-house milling, drilling, tapping and engraving.";
 
 export const metadata: Metadata = {
   title: { absolute: title },

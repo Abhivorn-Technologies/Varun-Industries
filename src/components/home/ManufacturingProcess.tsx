@@ -157,7 +157,7 @@ export function ManufacturingProcess() {
               At Varun Industries, our focus is on precision manufacturing, controlled production processes, material verification, dimensional accuracy and reliable delivery. We coordinate specialized laboratory testing and outside processing as required by customer specifications, while maintaining applicable inspection records and traceability throughout the manufacturing cycle.
             </p>
             <p className={styles.qualityText}>
-              Our objective is to deliver components that conform to approved drawings, technical specifications and agreed quality requirements for Space, Defence, Telecom and other engineering applications.
+              Our objective is to deliver components that conform to approved drawings, technical specifications and agreed quality requirements for Space, Defence, Telecom, Pharma and other engineering applications.
             </p>
           </div>
         </div>

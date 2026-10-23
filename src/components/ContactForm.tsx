@@ -43,6 +43,7 @@ export function ContactForm() {
   const [errors, setErrors] = useState<EnquiryErrors>({});
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [messageLength, setMessageLength] = useState(0);
+  const [preparedWhatsappUrl, setPreparedWhatsappUrl] = useState<string>("");
   const successRef = useRef<HTMLDivElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
 
@@ -81,50 +82,51 @@ export function ContactForm() {
       return;
     }
 
+    const clean = normaliseEnquiry(raw);
+    const lines = [
+      "*Website Enquiry — Varun Industries*",
+      "",
+      `*Name:* ${clean.name}`,
+      `*Company:* ${clean.company || "Not provided"}`,
+      `*Email:* ${clean.email}`,
+      `*Phone:* ${clean.phone || "Not provided"}`,
+      `*Sector:* ${clean.sector || "Not provided"}`,
+      "",
+      "*Requirement:*",
+      clean.message,
+    ];
+
+    const whatsappMessage = lines.join("\n");
+    const whatsappUrl = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(whatsappMessage)}`;
+    setPreparedWhatsappUrl(whatsappUrl);
+
+    // Send API request in background (for audit/server logs)
     const data = new FormData(form);
-    setStatus({ kind: "submitting" });
+    fetch("/api/enquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...raw,
+        website: data.get("website") ?? "",
+        startedAt: startedAt.current,
+        turnstileToken: data.get("cf-turnstile-response") ?? "",
+      }),
+    }).catch(() => {});
 
+    // Open WhatsApp directly
     try {
-      const response = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...raw,
-          website: data.get("website") ?? "",
-          startedAt: startedAt.current,
-          turnstileToken: data.get("cf-turnstile-response") ?? "",
-        }),
-      });
-      const result = (await response.json().catch(() => ({}))) as {
-        ok?: boolean;
-        message?: string;
-        errors?: EnquiryErrors;
-      };
-
-      if (response.ok && result.ok) {
-        form.reset();
-        setMessageLength(0);
-        setErrors({});
-        setStatus({ kind: "success" });
-        return;
+      const win = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      if (!win) {
+        window.location.href = whatsappUrl;
       }
-
-      if (result.errors) {
-        setErrors(result.errors);
-        focusFirstError(result.errors);
-      }
-      setStatus({
-        kind: "error",
-        message: result.message ?? "Something went wrong while sending your enquiry. Please try again.",
-      });
-      resetTurnstile();
     } catch {
-      setStatus({
-        kind: "error",
-        message: `We could not reach the server. Please check your connection, or email ${site.email}.`,
-      });
-      resetTurnstile();
+      window.location.href = whatsappUrl;
     }
+
+    form.reset();
+    setMessageLength(0);
+    setErrors({});
+    setStatus({ kind: "success" });
   }
 
   function describedBy(field: EnquiryField, hint?: string) {
@@ -134,14 +136,51 @@ export function ContactForm() {
   if (status.kind === "success") {
     return (
       <div ref={successRef} tabIndex={-1} className={styles.success} role="status">
-        <h3>Thank you, your enquiry has been sent.</h3>
-        <p>
-          We will review your requirement and reply to the email address you provided. If you have drawings to share,
-          please email them to <a href={`mailto:${site.email}`}>{site.email}</a>.
+        <div className={styles.successHeader}>
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ color: "var(--success)" }}
+            aria-hidden="true"
+          >
+            <path d="M20 6L9 17l-5-5" />
+          </svg>
+          <h3 style={{ margin: 0 }}>WhatsApp Opened with Your Enquiry</h3>
+        </div>
+        <p style={{ marginTop: "0.75rem" }}>
+          Your requirement has been formatted and directed to our team on WhatsApp at{" "}
+          <strong>{site.whatsapp.display}</strong>. Please press <strong>&ldquo;Send&rdquo;</strong> in WhatsApp
+          to complete your message.
         </p>
-        <button type="button" className="btn btn--outline" onClick={() => setStatus({ kind: "idle" })}>
-          Send another enquiry
-        </button>
+        <p>
+          If you have engineering drawings or CAD files to share, you can attach them directly in the chat or email them to{" "}
+          <a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "1.25rem" }}>
+          {preparedWhatsappUrl && (
+            <a
+              href={preparedWhatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--primary"
+            >
+              Reopen in WhatsApp
+            </a>
+          )}
+          <button
+            type="button"
+            className="btn btn--outline"
+            onClick={() => setStatus({ kind: "idle" })}
+          >
+            Send another enquiry
+          </button>
+        </div>
       </div>
     );
   }
@@ -234,7 +273,7 @@ export function ContactForm() {
 
       <Field label="Your requirement" name="message" required error={errors.message}>
         <p id="message-hint" className={styles.fieldHint}>
-          Describe the component: drawing number, material, quantity, timeline and any secondary operations.
+          Describe the component: drawing number, material, quantity and timeline.
         </p>
         <textarea
           id="message"
@@ -290,19 +329,28 @@ export function ContactForm() {
 
       <div className={styles.actions}>
         <button type="submit" className="btn btn--primary" disabled={submitting}>
-          {submitting ? "Sending…" : "Send enquiry"}
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+            style={{ marginRight: "0.5rem", verticalAlign: "middle" }}
+          >
+            <path d="M17.472 14.382c-.301-.15-1.78-.879-2.056-.98-.276-.101-.477-.15-.678.15-.2.301-.778.98-.954 1.18-.175.201-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.676-2.085-.175-.301-.019-.464.132-.614.136-.135.301-.351.452-.527.15-.175.2-.301.301-.502.101-.2.05-.376-.025-.526-.075-.15-.678-1.635-.93-2.24-.244-.588-.493-.508-.678-.517-.175-.009-.376-.01-.577-.01-.2 0-.527.075-.803.376s-1.054 1.03-1.054 2.512c0 1.482 1.08 2.912 1.23 3.113.15.201 2.125 3.245 5.148 4.552.719.311 1.28.497 1.718.636.723.23 1.38.198 1.9.12.58-.088 1.78-.727 2.03-1.43.25-.704.25-1.306.175-1.431-.075-.125-.276-.201-.577-.351z" />
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.176L2 22l4.981-1.408C8.423 21.493 10.158 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.2c-1.66 0-3.197-.47-4.507-1.285l-.323-.2-3.337.944.92-3.253-.21-.334C3.673 14.73 3.18 13.407 3.18 12c0-4.863 3.957-8.82 8.82-8.82 4.863 0 8.82 3.957 8.82 8.82 0 4.863-3.957 8.82-8.82 8.82z" />
+          </svg>
+          Send Enquiry via WhatsApp
         </button>
         <p className="visually-hidden" aria-live="polite">
-          {submitting ? "Sending your enquiry" : ""}
+          {submitting ? "Opening WhatsApp with your enquiry" : ""}
         </p>
       </div>
+      <p style={{ margin: "0.65rem 0 0", fontSize: "0.875rem", color: "var(--steel-600)" }}>
+        Enquiries go directly to WhatsApp at <strong>{site.whatsapp.display}</strong>.
+      </p>
     </form>
   );
-}
-
-function resetTurnstile() {
-  const turnstile = (window as unknown as { turnstile?: { reset: () => void } }).turnstile;
-  turnstile?.reset();
 }
 
 type FieldProps = {

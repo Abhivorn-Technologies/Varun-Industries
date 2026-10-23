@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { mapsUrl, site } from "@/lib/site";
 
 /** Organisation details for search engines (schema.org JSON-LD). */
 export function StructuredData() {
@@ -23,6 +23,12 @@ export function StructuredData() {
       postalCode: site.address.postalCode,
       addressCountry: site.address.country,
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: site.geo.latitude,
+      longitude: site.geo.longitude,
+    },
+    hasMap: mapsUrl,
     contactPoint: site.phones.map((phone) => ({
       "@type": "ContactPoint",
       telephone: phone.tel,

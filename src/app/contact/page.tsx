@@ -5,9 +5,9 @@ import { mapsUrl, site } from "@/lib/site";
 import styles from "./contact.module.css";
 
 export const metadata = pageMetadata({
-  title: "Contact and Invite Us for Vendor Registration",
+  title: "Partner with Varun Industries",
   description:
-    "Invite Varun Industries, Hyderabad for vendor registration. Call +91 77949 87472 or +91 73867 93251, email varunindustries2013@gmail.com, or send your requirement online.",
+    "Partner with Varun Industries, Hyderabad. Call +91 77949 87472 or +91 73867 93251, email varunindustries2013@gmail.com, or send your requirement online.",
   path: "/contact",
 });
 
@@ -16,7 +16,7 @@ export default function ContactPage() {
     <>
       <PageHeader
         label="Contact"
-        title="Invite Us for Vendor Registration"
+        title="Partner with Varun Industries"
         intro="Tell us about your component and we will review the requirement. You can also call, message us on WhatsApp or email your drawings directly."
       />
 
@@ -54,12 +54,14 @@ export default function ContactPage() {
               <div>
                 <dt>WhatsApp</dt>
                 <dd>
-                  {site.phones.map((phone) => (
-                    <a key={phone.whatsapp} href={`https://wa.me/${phone.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                      {phone.display}
-                      <span className="visually-hidden"> on WhatsApp (opens in a new tab)</span>
-                    </a>
-                  ))}
+                  <a
+                    href={`https://wa.me/${site.whatsapp.number}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>{site.whatsapp.display}</span>
+                    <span className="visually-hidden"> on WhatsApp (opens in a new tab)</span>
+                  </a>
                 </dd>
               </div>
               <div>
@@ -89,7 +91,6 @@ export default function ContactPage() {
                 <li>Drawing number and revision</li>
                 <li>Material and quantity</li>
                 <li>Required delivery timeline</li>
-                <li>Any plating, surface treatment or other secondary operations</li>
               </ul>
               <p>
                 Drawings can be emailed to <a href={`mailto:${site.email}`}>{site.email}</a>.

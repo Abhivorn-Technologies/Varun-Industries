@@ -8,7 +8,7 @@ import logo from "../../../public/brand/varun-industries-logo.png";
 export const metadata = pageMetadata({
   title: "About Us",
   description:
-    "Established in 2013 in Hyderabad, Varun Industries manufactures precision components for the space, defence and telecom sectors. Read our vision and mission.",
+    "Established in 2013 in Hyderabad, Varun Industries manufactures precision components for the space, defence, telecom and pharma sectors. Read our vision and mission.",
   path: "/about",
 });
 
@@ -18,7 +18,7 @@ export default function AboutPage() {
       <PageHeader
         label="About Varun Industries"
         title="Precision components, built around your requirements"
-        intro="Established in 2013, we manufacture precision components for customers in the space, defence and telecommunications sectors."
+        intro="Established in 2013, we manufacture precision components for customers in the space, defence, telecommunications and pharma sectors."
       />
 
       <section className="section" aria-labelledby="about-title">
@@ -26,8 +26,8 @@ export default function AboutPage() {
           <div className="prose">
             <h2 id="about-title">About us</h2>
             <p>
-              At Varun Industries, we manufacture precision components for customers in the space, defence, and
-              telecommunications sectors. Established in 2013, we combine CNC machining expertise with a practical
+              At Varun Industries, we manufacture precision components for customers in the space, defence,
+              telecommunications, and pharma sectors. Established in 2013, we combine CNC machining expertise with a practical
               understanding of the accuracy, inspection, and traceability these applications demand. We work closely
               with our customers to understand their drawings, specifications, quantities, and production
               requirements, then coordinate the machining processes needed to manufacture their components.
@@ -100,7 +100,7 @@ export default function AboutPage() {
             <h2 id="vision-title">Lasting partnerships built on attention to detail</h2>
             <p>
               Our vision is to build lasting partnerships with customers who rely on precision-manufactured
-              components for space, defence, and telecommunications applications. We aspire to be recognized for
+              components for space, defence, telecommunications, and pharma applications. We aspire to be recognized for
               understanding customer requirements, approaching each project with care, and coordinating the
               manufacturing processes needed to meet its specifications.
             </p>
@@ -140,7 +140,7 @@ export default function AboutPage() {
               We are committed to clear communication, careful coordination, and quality-conscious manufacturing
               throughout the production cycle. By combining our machining capabilities with suitable process support,
               we aim to help customers manage their component requirements with confidence. We serve the space,
-              defence, and telecommunications sectors with a commitment to precision, quality, and trust.
+              defence, telecommunications, and pharma sectors with a commitment to precision, quality, and trust.
             </p>
           </div>
         </div>

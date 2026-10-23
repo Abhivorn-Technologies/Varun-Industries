@@ -6,12 +6,13 @@
 .inhouseSplit {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: clamp(2rem, 4.5vw, 3.5rem);
-  align-items: center;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
 }
 
 @media (min-width: 900px) {
   .inhouseSplit {
     grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+    align-items: start;
   }
 }

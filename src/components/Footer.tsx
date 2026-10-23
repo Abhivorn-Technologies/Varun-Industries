@@ -28,7 +28,7 @@ export function Footer() {
             </span>
           </Link>
           <p className={styles.brandDesc}>
-            CNC precision machining for the space, defence and telecommunications sectors.
+            CNC precision machining for the space, defence, telecommunications and pharma sectors.
           </p>
           <p className={styles.established}>Established {site.founded}.</p>
         </div>
