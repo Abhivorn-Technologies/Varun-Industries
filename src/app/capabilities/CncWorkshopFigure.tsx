@@ -17,12 +17,6 @@ export function CncWorkshopFigure() {
           />
         </div>
       </div>
-      <figcaption className={styles.caption}>
-        <span className={styles.figNum}>Fig. 01</span>
-        <span className={styles.figText}>
-          CNC vertical milling centres for precision component manufacturing
-        </span>
-      </figcaption>
     </figure>
   );
 }

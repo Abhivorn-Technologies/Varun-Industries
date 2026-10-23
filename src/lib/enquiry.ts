@@ -16,7 +16,7 @@ export type EnquiryInput = {
 export type EnquiryField = keyof EnquiryInput;
 export type EnquiryErrors = Partial<Record<EnquiryField, string>>;
 
-export const sectorOptions = ["Space", "Defence", "Telecommunications", "Other"] as const;
+export const sectorOptions = ["Space", "Defence", "Telecommunications", "Pharma", "Other"] as const;
 
 export const limits = {
   name: 100,

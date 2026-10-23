@@ -10,9 +10,6 @@ const SELECTOR = [
   "[class*='Hero_galleryHead']",
   "[class*='Hero_marquee']",
   
-  // Page headers (inner pages)
-  ".page-header .container > *",
-  
   // Section headers & titles
   ".section-head > *",
   
@@ -54,9 +51,9 @@ const SELECTOR = [
 
 /**
  * Runs smooth float-up entrance animations on page load/refresh,
- * and continuously on scroll (both scrolling down and scrolling up).
- * Off-screen elements reset cleanly so re-entering the viewport
- * triggers the animation again.
+ * and progressively as elements enter the viewport during scrolling.
+ * Once revealed, elements remain stably in place to prevent repeated
+ * or distracting animations when users scroll back and forth.
  */
 export function ScrollReveal() {
   const pathname = usePathname();
@@ -66,9 +63,14 @@ export function ScrollReveal() {
     if (!("IntersectionObserver" in window)) return;
 
     const root = document.documentElement;
-    const targets = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR));
+    const targets = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR)).filter(
+      (el) => !el.closest("header:not(.page-header)")
+    );
 
     targets.forEach((el) => {
+      // If already revealed during this page session, do not reset
+      if (el.dataset.revealed === "true") return;
+
       el.dataset.reveal = "";
       delete el.dataset.revealed;
 
@@ -81,7 +83,15 @@ export function ScrollReveal() {
         );
         siblingIndex = siblings.indexOf(el);
       }
-      const delay = Math.max(0, Math.min(siblingIndex >= 0 ? siblingIndex : 0, 5) * 70);
+
+      // If the parent is a grid container, stagger across columns left-to-right
+      const isGrid =
+        parent?.classList &&
+        Array.from(parent.classList).some((cls) => cls.toLowerCase().includes("grid"));
+      const delay = isGrid
+        ? (Math.max(0, siblingIndex) % 3) * 80
+        : Math.max(0, Math.min(siblingIndex >= 0 ? siblingIndex : 0, 5) * 70);
+
       el.style.setProperty("--reveal-delay", `${delay}ms`);
     });
 
@@ -94,16 +104,10 @@ export function ScrollReveal() {
         for (const entry of entries) {
           const el = entry.target as HTMLElement;
           if (entry.isIntersecting) {
-            // Animate in when entering viewport (scrolling down, scrolling up, or on refresh)
+            // Animate in once when entering viewport (scrolling down, scrolling up, or on refresh)
             el.dataset.revealed = "true";
-          } else {
-            // Reset when safely beyond viewport edges so it can re-animate when scrolled back
-            const rect = entry.boundingClientRect;
-            const isOutside =
-              rect.bottom < -20 || rect.top > window.innerHeight + 20;
-            if (isOutside) {
-              delete el.dataset.revealed;
-            }
+            // Unobserve to prevent repeated or distracting re-triggers when scrolling back and forth
+            observer.unobserve(el);
           }
         }
       },
@@ -114,7 +118,11 @@ export function ScrollReveal() {
     );
 
     requestAnimationFrame(() => {
-      targets.forEach((el) => observer.observe(el));
+      targets.forEach((el) => {
+        if (el.dataset.revealed !== "true") {
+          observer.observe(el);
+        }
+      });
     });
 
     return () => {

@@ -8,9 +8,9 @@ export function PageHeader({ label, title, intro }: PageHeaderProps) {
   return (
     <header className="page-header">
       <div className="container">
-        <p className="label" data-reveal="">{label}</p>
-        <h1 data-reveal="">{title}</h1>
-        {intro && <p data-reveal="">{intro}</p>}
+        <p className="label">{label}</p>
+        <h1>{title}</h1>
+        {intro && <p>{intro}</p>}
       </div>
     </header>
   );

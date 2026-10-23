@@ -5,9 +5,9 @@ import { mapsUrl, site } from "@/lib/site";
 import styles from "./contact.module.css";
 
 export const metadata = pageMetadata({
-  title: "Contact and Invite For Vendor Request",
+  title: "Contact and Invite Us for Vendor Registration",
   description:
-    "Invite Varun Industries, Hyderabad for vendor requests. Call +91 77949 87472 or +91 73867 93251, email varunindustries2013@gmail.com, or send your requirement online.",
+    "Invite Varun Industries, Hyderabad for vendor registration. Call +91 77949 87472 or +91 73867 93251, email varunindustries2013@gmail.com, or send your requirement online.",
   path: "/contact",
 });
 
@@ -16,7 +16,7 @@ export default function ContactPage() {
     <>
       <PageHeader
         label="Contact"
-        title="Invite For Vendor Request"
+        title="Invite Us for Vendor Registration"
         intro="Tell us about your component and we will review the requirement. You can also call, message us on WhatsApp or email your drawings directly."
       />
 

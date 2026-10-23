@@ -36,7 +36,7 @@
 .text {
   margin: 0;
   max-width: 70ch;
-  font-family: var(--font-manrope);
+  font-family: var(--font-sans);
   font-size: 0.975rem;
   font-weight: 400;
 }

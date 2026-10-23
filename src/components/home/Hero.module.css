@@ -2,6 +2,7 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  font-family: var(--font-manrope);
   color: var(--silver-200);
   background:
     radial-gradient(ellipse at 85% 10%, rgba(40, 92, 190, 0.35), transparent 55%),
@@ -14,7 +15,6 @@
 @media (min-width: 960px) {
   .hero {
     min-height: calc(100vh - var(--header-h));
-    min-height: calc(100dvh - var(--header-h));
     display: flex;
     align-items: center;
     padding-top: 0;
@@ -190,8 +190,8 @@
 }
 
 .title {
-  font-family: var(--font-manrope);
-  font-weight: 800;
+  font-family: var(--font-roundo);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.015em;
   line-height: 1.08;
@@ -253,9 +253,9 @@
 }
 
 .statValue {
-  font-family: var(--font-manrope);
+  font-family: var(--font-roundo);
   font-size: clamp(1.65rem, 2.6vw, 2.35rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.05;
   color: var(--white);
   letter-spacing: -0.02em;

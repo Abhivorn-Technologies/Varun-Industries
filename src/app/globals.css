@@ -3,6 +3,40 @@
    Navy and silver, taken from the company logo.
 ------------------------------------------------------------------- */
 
+/* Roundo font declarations (local + Fontshare fallback) */
+@font-face {
+  font-family: "Roundo";
+  src: url("/fonts/roundo-700.woff2") format("woff2"),
+       url("https://cdn.fontshare.com/wf/FE6LFMIMV2EZQMC5ONCXSAK5QYWEOHP4/SDYEVNAIXEHBYASCAGCXKYAUD3B5IK6S/V4PHQ63ODHAFH7T7R7RJRLEOHETBHSLX.woff2") format("woff2");
+  font-weight: 700 800;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roundo";
+  src: url("/fonts/roundo-600.woff2") format("woff2"),
+       url("https://cdn.fontshare.com/wf/5X6EXGMDFEMG55FJQNEB43YX6JZ4F2M6/OLCOJ2EA5TYY45PFJRIHCTSERNKWJ44F/A5Y3H4CLF6CEJ4Q7GRBFAXPQ7TLYAONM.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roundo";
+  src: url("/fonts/roundo-500.woff2") format("woff2"),
+       url("https://cdn.fontshare.com/wf/EA637L4BIXB6O4MML2VOERWRQRJTV5JG/5WN5KIABABGBSH6P6F4H6MI4TYM5DSR3/F3PKOKZGKRKQJ4TVZHC35VVZNVO6G5U6.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roundo";
+  src: url("/fonts/roundo-400.woff2") format("woff2"),
+       url("https://cdn.fontshare.com/wf/U2WCOTLND2HQV2ULWYIDRI2M6NL36ENE/E3D5WEVXPGTWYSMZ4PPC2QQJ6PWPBAB6/TKDKVV533PJFHTPALHLWYWKVIT6IG6AD.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
 :root {
   --navy-950: #08152a;
   --navy-900: #0b1b33;
@@ -21,17 +55,23 @@
   --danger: #a4161a;
   --success: #1d6b3a;
 
+  --font-sans: var(--font-plex-sans), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-plex-condensed), var(--font-plex-sans), "Arial Narrow", sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-manrope: var(--font-manrope), "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sans: var(--font-manrope);
-  --font-display: var(--font-manrope);
-  --font-poppins: var(--font-manrope);
-  --font-mono: var(--font-manrope);
+  --font-roundo: var(--font-roundo), "Roundo", var(--font-manrope), system-ui, sans-serif;
 
   --container: 1200px;
   --gutter: clamp(1rem, 4vw, 2.5rem);
   --section: clamp(3.5rem, 8vw, 6.5rem);
   --radius: 2px;
-  --header-h: 74px;
+  --header-h: 82px;
+}
+
+@media (max-width: 600px) {
+  :root {
+    --header-h: 72px;
+  }
 }
 
 *,
@@ -49,7 +89,7 @@ body {
   margin: 0;
   background: var(--white);
   color: var(--ink);
-  font-family: var(--font-manrope);
+  font-family: var(--font-sans);
   font-size: 1.0625rem;
   font-weight: 400;
   line-height: 1.65;
@@ -77,9 +117,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-manrope);
+  font-family: var(--font-display);
   line-height: 1.15;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.005em;
   margin: 0 0 0.75rem;
   color: var(--navy-900);
   text-wrap: balance;
@@ -205,7 +245,7 @@ a:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -226,7 +266,7 @@ a:hover {
 }
 
 .lead {
-  font-family: var(--font-manrope);
+  font-family: var(--font-sans);
   font-size: clamp(1.125rem, 1.6vw, 1.25rem);
   font-weight: 400;
   line-height: 1.6;
@@ -253,7 +293,7 @@ a:hover {
   padding: 0.75rem 1.5rem;
   border: 1px solid transparent;
   border-radius: var(--radius);
-  font-family: var(--font-manrope);
+  font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.2;
@@ -392,7 +432,7 @@ a:hover {
   gap: 1rem 1.5rem;
 }
 .hero__meta dt {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -402,7 +442,6 @@ a:hover {
 .hero__meta dd {
   margin: 0.25rem 0 0;
   color: var(--white);
-  font-family: var(--font-manrope);
   font-weight: 500;
 }
 
@@ -462,14 +501,14 @@ a:hover {
   display: flex;
   gap: 0.75rem;
   margin-top: 0.75rem;
-  font-family: var(--font-manrope);
+  font-family: var(--font-sans);
   font-size: 0.9375rem;
   font-weight: 400;
   color: var(--steel-700);
   line-height: 1.45;
 }
 .figure figcaption span:first-child {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
@@ -503,18 +542,19 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 2.5rem;
+  gap: 0.75rem clamp(1.5rem, 3vw, 2.5rem);
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 }
 .sectors__title {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--silver-400);
   margin: 0;
+  white-space: nowrap;
 }
 .sectors ul {
   list-style: none;
@@ -522,13 +562,15 @@ a:hover {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 2.5rem;
+  align-items: center;
+  gap: 0.5rem clamp(1.25rem, 2.5vw, 2.5rem);
 }
 .sectors li {
-  font-family: var(--font-manrope);
+  font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--white);
+  white-space: nowrap;
 }
 
 /* ---------- Spec tables and lists ---------- */
@@ -576,7 +618,7 @@ a:hover {
   }
 }
 .process-list .index {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.875rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -584,7 +626,7 @@ a:hover {
   padding-top: 0.2em;
 }
 .process-list h3 {
-  font-family: var(--font-manrope);
+  font-family: var(--font-display);
   margin-bottom: 0.25rem;
   font-size: 1.25rem;
   font-weight: 700;
@@ -597,13 +639,13 @@ a:hover {
 .spec-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: var(--font-manrope);
-  font-size: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
   font-variant-numeric: tabular-nums;
 }
 .spec-table caption {
   text-align: left;
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -619,7 +661,7 @@ a:hover {
   vertical-align: top;
 }
 .spec-table thead th {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -628,12 +670,12 @@ a:hover {
   border-bottom: 2px solid var(--navy-800);
 }
 .spec-table tbody th {
-  font-family: var(--font-manrope);
+  font-family: var(--font-display);
   font-weight: 600;
   color: var(--navy-900);
 }
 .spec-table td {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-weight: 400;
 }
 
@@ -641,10 +683,10 @@ a:hover {
   list-style: none;
   margin: 0;
   padding: 0;
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
 }
 .spec-list__title {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -657,7 +699,7 @@ a:hover {
 .spec-list__item {
   padding: 0.85rem 0;
   border-bottom: 1px solid var(--silver-300);
-  font-family: var(--font-manrope);
+  font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
   color: var(--navy-900);
@@ -776,7 +818,7 @@ a:hover {
 .steps li::before {
   content: counter(step, decimal-leading-zero);
   display: block;
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.875rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -784,7 +826,7 @@ a:hover {
   margin-bottom: 0.75rem;
 }
 .steps h3 {
-  font-family: var(--font-manrope);
+  font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 700;
 }
@@ -898,7 +940,7 @@ a:hover {
   margin-bottom: 0.4rem;
 }
 .prose .updated {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--steel-600);
@@ -917,7 +959,7 @@ a:hover {
 .values li {
   padding: 1.25rem 1rem;
   text-align: center;
-  font-family: var(--font-manrope);
+  font-family: var(--font-display);
   font-size: clamp(1.125rem, 2.4vw, 1.5rem);
   font-weight: 700;
   color: var(--navy-900);
@@ -976,7 +1018,7 @@ a:hover {
   padding: clamp(4rem, 10vw, 8rem) 0;
 }
 .not-found__code {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--navy-600);
