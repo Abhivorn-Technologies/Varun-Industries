@@ -12,195 +12,107 @@ const stages: Stage[] = [
   {
     num: "01",
     title: "Customer Enquiry & Purchase Order",
-    desc: "Review customer requirements and confirm the purchase order.",
+    desc: "We receive customer enquiries, technical drawings, specifications and purchase orders. Our team reviews the component requirements, quantities, material specifications and delivery schedules to understand customer expectations and establish the scope of manufacturing.",
   },
   {
     num: "02",
     title: "Drawing Review & Production Planning",
-    desc: "Review drawings, specifications and plan the manufacturing process.",
+    desc: "Engineering drawings and technical specifications are carefully reviewed to identify critical dimensions, tolerances, material requirements and special processes. Production planning includes operation sequencing, machine allocation, resource planning and delivery scheduling to support efficient manufacturing.",
   },
   {
     num: "03",
     title: "Raw Material Procurement",
-    desc: "Source approved raw materials from suitable suppliers.",
+    desc: "Raw materials are procured according to customer-approved specifications, including material grade, dimensions and applicable standards. We coordinate with suitable suppliers to ensure the required material is available with relevant certificates and identification records.",
   },
   {
     num: "04",
     title: "Material Receipt & Inspection",
-    desc: "Verify incoming material identification, dimensions and documentation.",
+    desc: "Upon receipt, raw materials are inspected for identification, quantity, dimensions, material grade and applicable documentation. Material test certificates are reviewed where required, and accepted materials are identified and released for production in accordance with established procedures.",
   },
   {
     num: "05",
     title: "Chemical Composition Testing",
-    desc: "Verify the chemical composition as per material specifications.",
+    desc: "Chemical composition testing verifies the elemental composition of metals and alloys to determine whether the material conforms to the specified grade. Suitable analytical methods, such as optical emission spectroscopy or X-ray fluorescence, may be used depending on the material and specification. Test reports are reviewed against the applicable acceptance criteria.",
   },
   {
     num: "06",
     title: "Tensile Testing",
-    desc: "Evaluate tensile strength and applicable mechanical properties.",
+    desc: "Tensile testing evaluates the mechanical properties of materials under an applied pulling force. Depending on the applicable standard, the test can determine ultimate tensile strength, yield strength and elongation. These results help verify that the material meets the required mechanical property specifications.",
   },
   {
     num: "07",
     title: "Hardness Testing",
-    desc: "Check hardness values as per customer requirements.",
+    desc: "Hardness testing evaluates a material's resistance to indentation or deformation using an appropriate testing method, such as Rockwell, Brinell or Vickers. The results are compared with the specified hardness requirements to confirm suitability for the intended application.",
   },
   {
     num: "08",
     title: "Metallurgical Testing",
-    desc: "Examine material microstructure and metallurgical properties where required.",
+    desc: "Metallurgical testing examines material characteristics such as microstructure, grain structure and other properties when required. These examinations can help assess material condition and verify compliance with specified metallurgical requirements, heat-treatment conditions or applicable customer standards.",
   },
   {
     num: "09",
     title: "Material Approval & Test Report Review",
-    desc: "Review material certificates and laboratory reports before approval.",
+    desc: "Applicable material certificates and laboratory test reports are reviewed before material release. Results are checked against customer specifications and relevant standards, and the associated records are maintained to support material identification, traceability and production control.",
   },
   {
     num: "10",
     title: "CNC Machining",
-    desc: "Machine precision components on our CNC milling centres with accuracy.",
+    desc: "Our CNC vertical milling centres are used to manufacture precision components according to approved engineering drawings. Machining operations are planned to achieve the specified dimensions, tolerances and surface requirements. Appropriate process controls and inspection checks help maintain consistency and repeatability throughout production.",
   },
   {
     num: "11",
     title: "Drilling, Tapping & Engraving",
-    desc: "Perform drilling, tapping and engraving according to drawings.",
+    desc: "Secondary machining operations are performed according to component requirements. Drilling produces specified holes, tapping creates internal threads, and engraving provides required identification marks, part numbers or other specified information. Each operation is carried out with reference to approved drawings and technical requirements.",
   },
   {
     num: "12",
     title: "Deburring & Component Finishing",
-    desc: "Remove burrs and finish component edges and surfaces.",
+    desc: "Machined components undergo deburring to remove unwanted burrs and sharp edges resulting from manufacturing operations. Edges and surfaces are finished as specified to support safe handling, proper assembly and compliance with drawing requirements.",
   },
   {
     num: "13",
     title: "Assembly",
-    desc: "Assemble components where required and verify fit and alignment.",
+    desc: "Where required, components are assembled according to approved drawings, assembly instructions and customer specifications. Fit, alignment, completeness and workmanship are checked to ensure the assembled product meets the defined requirements.",
   },
   {
     num: "14",
     title: "In-Process Inspection",
-    desc: "Perform dimensional and visual checks during production.",
+    desc: "Dimensional and visual checks are performed at appropriate stages during manufacturing. Suitable inspection instruments, including digital vernier calipers, micrometers and height gauges, are used according to the measurement requirements. Identified deviations are addressed through the established nonconformance and corrective-action process.",
   },
   {
     num: "15",
     title: "Outside Processing & Surface Finishing",
-    desc: "Coordinate heat treatment, coating or other processes through approved partners.",
+    desc: "Specialized operations such as plating, anodizing, coating and other surface treatments are coordinated with supporting vendors when required. Processing requirements are communicated according to the applicable specifications, and relevant certificates and reports are reviewed upon completion.",
   },
   {
     num: "16",
     title: "Coating & Plating Testing",
-    desc: "Verify coating and plating for thickness, adhesion and quality.",
+    desc: "Where specified, finished surfaces are evaluated for applicable requirements such as coating thickness, adhesion, corrosion resistance and visual appearance. Appropriate tests and acceptance criteria are selected according to the coating type, customer drawings and applicable standards. Required reports and process certificates are collected and reviewed.",
   },
   {
     num: "17",
     title: "Non-Destructive Testing (NDT)",
-    desc: "Perform NDT methods as per customer and industry requirements.",
+    desc: "Non-destructive testing methods are used where specified to evaluate components for certain discontinuities without damaging their intended usability. Depending on the material and application, methods may include dye penetrant testing, magnetic particle testing, ultrasonic testing or radiographic testing. Testing and acceptance are carried out according to the applicable requirements.",
   },
   {
     num: "18",
     title: "Final Inspection & Quality Clearance",
-    desc: "Complete final inspection and clear the component for dispatch.",
+    desc: "Completed components undergo final inspection to verify dimensional accuracy, workmanship, surface condition, identification and compliance with approved drawings. Applicable laboratory reports, inspection results and outside-processing certificates are reviewed before the components are approved for dispatch.",
   },
   {
     num: "19",
     title: "Documentation & Traceability",
-    desc: "Maintain all inspection reports and process documents for traceability.",
+    desc: "Relevant records are maintained throughout the manufacturing cycle, including material certificates, laboratory test reports, inspection records, outside-processing documents and dispatch documentation, as applicable. These records support product traceability, quality verification and customer documentation requirements.",
   },
   {
     num: "20",
     title: "Packing & Dispatch",
-    desc: "Pack components securely and prepare delivery documents.",
+    desc: "Approved components are packed using suitable protective materials to minimize damage, contamination and handling risks during transportation. Required labels, quantities, delivery documents and inspection records are verified before dispatch.",
   },
   {
     num: "21",
     title: "Customer Delivery",
-    desc: "Deliver finished components as per the agreed schedule.",
-  },
-];
-
-const qualityFeatures = [
-  {
-    title: "Quality-Driven Process",
-    text: "Rigorous checks at every stage of manufacturing.",
-    icon: (
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <path d="m9 12 2 2 4-4" />
-      </svg>
-    ),
-  },
-  {
-    title: "Precision Manufacturing",
-    text: "Advanced CNC capabilities for accurate and consistent results.",
-    icon: (
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Complete Traceability",
-    text: "Full documentation from material to final delivery.",
-    icon: (
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
-        <line x1="16" y1="13" x2="8" y2="13" />
-        <line x1="16" y1="17" x2="8" y2="17" />
-        <line x1="10" y1="9" x2="8" y2="9" />
-      </svg>
-    ),
-  },
-  {
-    title: "Reliable Delivery",
-    text: "Your components, delivered with quality and care.",
-    icon: (
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-        <circle cx="10" cy="7" r="4" />
-        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
+    desc: "Finished components are dispatched according to the agreed delivery schedule and customer requirements. Dispatch details and relevant delivery records are maintained to support order tracking, traceability and reliable customer service.",
   },
 ];
 
@@ -209,13 +121,15 @@ export function ManufacturingProcess() {
     <section className={styles.section} aria-labelledby="manufacturing-process-title">
       <div className="container">
         {/* ---------- Section Header ---------- */}
-        <div className={styles.header} data-reveal="">
-          <p className={styles.eyebrow}>VARUN INDUSTRIES</p>
-          <h2 id="manufacturing-process-title" className={styles.title}>
+        <div className={styles.header}>
+          <p className={styles.eyebrow} data-reveal="">
+            VARUN INDUSTRIES
+          </p>
+          <h2 id="manufacturing-process-title" className={styles.title} data-reveal="">
             Complete Manufacturing Process
           </h2>
-          <p className={styles.description}>
-            From your enquiry to final delivery, we follow a structured and quality-driven manufacturing process that ensures precision, reliability and complete traceability at every stage.
+          <p className={styles.description} data-reveal="">
+            At Varun Industries, we follow a systematic manufacturing process from customer enquiry and raw material procurement to precision machining, laboratory testing, quality inspection and final delivery. Every stage is managed according to customer drawings, technical specifications and applicable quality requirements to ensure accuracy, reliability, traceability and timely delivery.
           </p>
         </div>
 
@@ -235,20 +149,16 @@ export function ManufacturingProcess() {
         {/* ---------- Our Commitment to Quality Panel ---------- */}
         <div className={styles.qualityPanel} data-reveal="">
           <div className={styles.qualityLead}>
-            <h3 className={styles.qualityTitle}>
-              Our Commitment<br />to Quality
-            </h3>
+            <p className={styles.qualityEyebrow}>STANDARDS &amp; RELIABILITY</p>
+            <h3 className={styles.qualityTitle}>Our Commitment to Quality</h3>
           </div>
-          <div className={styles.qualityFeatures}>
-            {qualityFeatures.map((feat) => (
-              <div key={feat.title} className={styles.qualityItem} data-reveal="">
-                <div className={styles.qualityIconCircle} aria-hidden="true">
-                  {feat.icon}
-                </div>
-                <h4 className={styles.qualityItemTitle}>{feat.title}</h4>
-                <p className={styles.qualityItemText}>{feat.text}</p>
-              </div>
-            ))}
+          <div className={styles.qualityBody}>
+            <p className={styles.qualityText}>
+              At Varun Industries, our focus is on precision manufacturing, controlled production processes, material verification, dimensional accuracy and reliable delivery. We coordinate specialized laboratory testing and outside processing as required by customer specifications, while maintaining applicable inspection records and traceability throughout the manufacturing cycle.
+            </p>
+            <p className={styles.qualityText}>
+              Our objective is to deliver components that conform to approved drawings, technical specifications and agreed quality requirements for Space, Defence, Telecom and other engineering applications.
+            </p>
           </div>
         </div>
       </div>

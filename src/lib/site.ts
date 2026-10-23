@@ -26,7 +26,7 @@ export const site = {
     postalCode: "500072",
     country: "IN",
   },
-  sectors: ["Space", "Defence", "Telecommunications"],
+  sectors: ["Space", "Defence", "Telecom", "Pharma"],
   values: ["Precision", "Quality", "Trust"],
 } as const;
 

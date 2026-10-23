@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Sans_Condensed, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import { CookieConsent } from "@/components/CookieConsent";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -9,10 +10,58 @@ import { baseOpenGraph } from "@/lib/metadata";
 import { site } from "@/lib/site";
 import "./globals.css";
 
+const plexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-plex-sans",
+  display: "swap",
+});
+
+const plexCondensed = IBM_Plex_Sans_Condensed({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-plex-condensed",
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-plex-mono",
+  display: "swap",
+});
+
 const manrope = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-manrope",
+  display: "swap",
+});
+
+const roundo = localFont({
+  src: [
+    {
+      path: "../../public/fonts/roundo-400.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/roundo-500.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/roundo-600.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/roundo-700.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-roundo",
   display: "swap",
 });
 
@@ -38,7 +87,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={manrope.variable}>
+    <html
+      lang="en-IN"
+      className={`${plexSans.variable} ${plexCondensed.variable} ${plexMono.variable} ${manrope.variable} ${roundo.variable}`}
+    >
       <body>
         <a href="#main" className="skip-link">
           Skip to main content

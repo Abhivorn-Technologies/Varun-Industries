@@ -104,7 +104,7 @@ export function Hero() {
 
         <div className={styles.actions} data-reveal="">
           <Link href="/contact#enquiry" className={styles.primary}>
-            Invite For Vendor Request
+            Invite Us for Vendor Registration
             <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
               <path d="M3 10h13M11 5l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

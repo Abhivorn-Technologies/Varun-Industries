@@ -6,7 +6,7 @@
 .footer {
   background: var(--navy-950);
   color: var(--silver-300);
-  font-family: var(--font-manrope);
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   font-weight: 400;
   line-height: 1.6;
@@ -81,7 +81,7 @@
 }
 
 .name {
-  font-family: var(--font-manrope);
+  font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -91,7 +91,7 @@
 }
 
 .tagline {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -101,7 +101,7 @@
 }
 
 .brandDesc {
-  font-family: var(--font-manrope);
+  font-family: var(--font-sans);
   font-size: 0.9375rem;
   color: var(--silver-300);
   line-height: 1.55;
@@ -110,7 +110,7 @@
 }
 
 .established {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.875rem;
   color: var(--silver-400);
   margin: 0;
@@ -119,7 +119,7 @@
 /* ---------- Column Headings ---------- */
 
 .heading {
-  font-family: var(--font-manrope);
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -275,7 +275,7 @@
 
 .creditText {
   margin: 0;
-  font-family: var(--font-manrope);
+  font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 500;
   color: #ffffff;
