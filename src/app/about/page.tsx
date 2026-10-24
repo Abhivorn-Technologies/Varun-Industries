@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { CtaBand } from "@/components/CtaBand";
-import { PageHeader } from "@/components/PageHeader";
+import { PageHero } from "@/components/PageHero";
 import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/site";
 import logo from "../../../public/brand/varun-industries-logo.png";
@@ -15,7 +15,7 @@ export const metadata = pageMetadata({
 export default function AboutPage() {
   return (
     <>
-      <PageHeader
+      <PageHero
         label="About Varun Industries"
         title="Precision components, built around your requirements"
         intro="Established in 2013, we manufacture precision components for customers in the space, defence, telecommunications and pharma sectors."

@@ -1,5 +1,5 @@
 import { ContactForm } from "@/components/ContactForm";
-import { PageHeader } from "@/components/PageHeader";
+import { PageHero } from "@/components/PageHero";
 import { pageMetadata } from "@/lib/metadata";
 import { mapsUrl, site } from "@/lib/site";
 import styles from "./contact.module.css";
@@ -14,7 +14,7 @@ export const metadata = pageMetadata({
 export default function ContactPage() {
   return (
     <>
-      <PageHeader
+      <PageHero
         label="Contact"
         title="Partner with Varun Industries"
         intro="Tell us about your component and we will review the requirement. You can also call, message us on WhatsApp or email your drawings directly."

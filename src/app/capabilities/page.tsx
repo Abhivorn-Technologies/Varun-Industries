@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
-import { PageHeader } from "@/components/PageHeader";
+import { PageHero } from "@/components/PageHero";
 import { CncWorkshopFigure } from "./CncWorkshopFigure";
 import { InspectionComposition } from "./InspectionComposition";
 import styles from "./capabilities.module.css";
@@ -17,7 +17,7 @@ export const metadata = pageMetadata({
 export default function CapabilitiesPage() {
   return (
     <>
-      <PageHeader
+      <PageHero
         label="Capabilities"
         title="In-house machining, with coordinated secondary operations"
         intro="We machine components in our own shop and coordinate specialist vendors for the processes a project needs beyond that."

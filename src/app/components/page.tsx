@@ -1,6 +1,6 @@
 import { CtaBand } from "@/components/CtaBand";
 import { Figure } from "@/components/Figure";
-import { PageHeader } from "@/components/PageHeader";
+import { PageHero } from "@/components/PageHero";
 import { pageMetadata } from "@/lib/metadata";
 import { galleryOrder } from "@/lib/photos";
 
@@ -14,7 +14,7 @@ export const metadata = pageMetadata({
 export default function ComponentsPage() {
   return (
     <>
-      <PageHeader
+      <PageHero
         label="Gallery"
         title="Precision parts gallery"
         intro="A selection of housings, enclosures, plates and fixtures machined by Varun Industries."

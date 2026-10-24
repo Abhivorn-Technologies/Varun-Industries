@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageHero } from "@/components/PageHero";
 import { pageMetadata } from "@/lib/metadata";
 import { careersApplicationHref } from "@/lib/site";
 import styles from "./careers.module.css";
@@ -49,21 +50,13 @@ export default function CareersPage() {
   return (
     <>
       {/* ---------- Careers Hero Section ---------- */}
-      <section className={styles.hero} aria-labelledby="careers-heading">
-        <div className={`container ${styles.heroContainer}`}>
-          <div className={styles.heroContent}>
-            <p className={styles.eyebrow} data-reveal="">
-              CAREERS · VARUN INDUSTRIES
-            </p>
-            <h1 id="careers-heading" className={styles.heading} data-reveal="">
-              Build Your Career With Us
-            </h1>
-            <p className={styles.description} data-reveal="">
-              Grow your skills in precision manufacturing and contribute to quality-driven engineering.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        asSection
+        id="careers-heading"
+        label="CAREERS · VARUN INDUSTRIES"
+        title="Build Your Career With Us"
+        intro="Grow your skills in precision manufacturing and contribute to quality-driven engineering."
+      />
 
       {/* ---------- "Why Work With Us?" Card & Application CTA ---------- */}
       <section className={styles.benefitsSection} aria-labelledby="benefits-heading">
