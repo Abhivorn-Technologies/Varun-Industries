@@ -30,8 +30,8 @@ export const site = {
   sectors: ["Space", "Defence", "Telecom", "Pharma"],
   values: ["Precision", "Quality", "Trust"],
   geo: {
-    latitude: 17.4819444,
-    longitude: 78.42625,
+    latitude: 17.481952667236328,
+    longitude: 78.42623901367188,
   },
 } as const;
 
@@ -46,7 +46,7 @@ export const heroStats = [
 ] as const;
 
 export const mapsUrl =
-  "https://www.google.com/maps/place//@17.4819453,78.4261348,21z/data=!4m6!1m5!3m4!2zMTfCsDI4JzU1LjAiTiA3OMKwMjUnMzQuNSJF!8m2!3d17.4819444!4d78.42625?hl=en&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D";
+  "https://www.google.com/maps?q=17.481952667236328,78.42623901367188&z=17&hl=en";
 
 export const navigation = [
   { href: "/", label: "Home" },
