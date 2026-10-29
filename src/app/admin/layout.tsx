@@ -12,30 +12,44 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
   const isLoginPage = pathname === "/admin/login";
 
   useEffect(() => {
+    let isMounted = true;
+
     async function checkAuth() {
+      if (isLoginPage) {
+        setLoading(false);
+        return;
+      }
+
       try {
         const res = await fetch("/api/admin/auth/me");
         if (res.ok) {
           const data = await res.json();
-          if (!data.authenticated && !isLoginPage) {
-            router.push("/admin/login");
+          if (data.authenticated) {
+            if (isMounted) setAuthenticated(true);
+          } else {
+            router.replace("/admin/login");
           }
-        } else if (!isLoginPage) {
-          router.push("/admin/login");
+        } else {
+          router.replace("/admin/login");
         }
       } catch (err) {
         console.error("Auth check failed:", err);
-        if (!isLoginPage) router.push("/admin/login");
+        router.replace("/admin/login");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     }
 
     checkAuth();
+
+    return () => {
+      isMounted = false;
+    };
   }, [pathname, isLoginPage, router]);
 
   async function handleLogout() {
@@ -49,6 +63,39 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (isLoginPage) {
     return <div className={styles.adminRoot}>{children}</div>;
+  }
+
+  // Prevent 1s flash: NEVER render admin dashboard shell until authenticated
+  if (loading || !authenticated) {
+    return (
+      <div
+        className={styles.adminRoot}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "100vh",
+          backgroundColor: "#f8fafc",
+        }}
+      >
+        <div style={{ textAlign: "center", color: "#64748b", fontFamily: "var(--font-sans)" }}>
+          <div
+            style={{
+              width: "36px",
+              height: "36px",
+              border: "3px solid #e2e8f0",
+              borderTopColor: "#1e3a8a",
+              borderRadius: "50%",
+              margin: "0 auto 1rem",
+              animation: "spin 0.75s linear infinite",
+            }}
+          />
+          <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "#334155" }}>
+            Verifying administrative access...
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const navItems = [
@@ -259,13 +306,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </header>
 
         <main className={styles.contentArea}>
-          {loading ? (
-            <div style={{ padding: "3rem", textAlign: "center", color: "#64748b" }}>
-              Loading console...
-            </div>
-          ) : (
-            children
-          )}
+          {children}
         </main>
       </div>
     </div>
