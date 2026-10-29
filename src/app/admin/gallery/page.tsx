@@ -19,12 +19,13 @@ interface GalleryItem {
   createdAt: string;
 }
 
-const CATEGORIES = [
+const DEFAULT_CATEGORIES = [
   "All",
-  "Precision Housings & Brackets",
-  "Enclosures & Heavy Casings",
-  "Plates, Tooling & Fixtures",
-  "Turned Rings & Precision Fittings",
+  "Housings",
+  "Enclosures",
+  "Plates & Fixtures",
+  "Rings & Fixtures",
+  "Shop Floor",
 ];
 
 export default function AdminGalleryPage() {
@@ -36,6 +37,8 @@ export default function AdminGalleryPage() {
   const [uploading, setUploading] = useState(false);
   const [modalError, setModalError] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<GalleryItem | null>(null);
+  const [seeding, setSeeding] = useState(false);
+  const [seedNotice, setSeedNotice] = useState("");
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,7 +48,7 @@ export default function AdminGalleryPage() {
 
   const [form, setForm] = useState({
     title: "",
-    category: "Precision Housings & Brackets",
+    category: "Housings",
     caption: "",
     dimensions: "",
     material: "Aluminium Alloy 6061-T6",
@@ -54,6 +57,34 @@ export default function AdminGalleryPage() {
     order: 0,
     isActive: true,
   });
+
+  const categories = React.useMemo(() => {
+    const set = new Set(DEFAULT_CATEGORIES);
+    items.forEach((it) => {
+      if (it.category) set.add(it.category);
+    });
+    return Array.from(set);
+  }, [items]);
+
+  async function handleSeedDefaultParts() {
+    setSeeding(true);
+    setSeedNotice("");
+    try {
+      const res = await fetch("/api/admin/gallery/seed", { method: "POST" });
+      const json = await res.json();
+      if (res.ok) {
+        setSeedNotice(json.message || "Gallery populated successfully!");
+        await loadGallery(categoryFilter);
+        setTimeout(() => setSeedNotice(""), 4000);
+      } else {
+        setSeedNotice(json.message || "Failed to seed default parts.");
+      }
+    } catch {
+      setSeedNotice("Failed to connect to seed endpoint.");
+    } finally {
+      setSeeding(false);
+    }
+  }
 
   async function loadGallery(cat = categoryFilter) {
     try {
@@ -107,7 +138,7 @@ export default function AdminGalleryPage() {
     setModalError("");
     setForm({
       title: "",
-      category: categoryFilter !== "All" ? categoryFilter : "Precision Housings & Brackets",
+      category: categoryFilter !== "All" ? categoryFilter : "Housings",
       caption: "",
       dimensions: "",
       material: "Aluminium Alloy 6061-T6",
@@ -253,7 +284,19 @@ export default function AdminGalleryPage() {
             Precision Parts & Components Gallery ({items.length})
           </div>
 
-          <div className={styles.cardActions}>
+          <div className={styles.cardActions} style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+            <button
+              type="button"
+              onClick={handleSeedDefaultParts}
+              disabled={seeding}
+              className={styles.btnSecondary}
+              title="Populate catalog with default factory photographs"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+              </svg>
+              {seeding ? "Populating..." : "Restore Default Parts"}
+            </button>
             <button type="button" onClick={openCreateModal} className={styles.btnPrimary}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <line x1="12" y1="5" x2="12" y2="19" />
@@ -264,10 +307,27 @@ export default function AdminGalleryPage() {
           </div>
         </div>
 
+        {seedNotice && (
+          <div
+            style={{
+              padding: "0.75rem 1rem",
+              margin: "1rem 1.5rem 0",
+              backgroundColor: "#f0fdf4",
+              border: "1px solid #bbf7d0",
+              color: "#166534",
+              borderRadius: "6px",
+              fontSize: "0.85rem",
+              fontWeight: 500,
+            }}
+          >
+            {seedNotice}
+          </div>
+        )}
+
         {/* Categories Tab Strip */}
         <div className={styles.filterBar}>
           <div className={styles.tabsContainer} style={{ width: "100%", overflowX: "auto" }}>
-            {CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <button
                 key={cat}
                 type="button"
@@ -287,7 +347,22 @@ export default function AdminGalleryPage() {
           </div>
         ) : items.length === 0 ? (
           <div style={{ textAlign: "center", padding: "4rem 2rem", color: "#64748b" }}>
-            No components catalogued in this category yet. Click &quot;Add New Part&quot; to upload photographs.
+            <p style={{ margin: "0 0 1.25rem", fontSize: "0.95rem" }}>
+              No components catalogued in this category yet.
+            </p>
+            <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center" }}>
+              <button
+                type="button"
+                onClick={handleSeedDefaultParts}
+                disabled={seeding}
+                className={styles.btnSecondary}
+              >
+                {seeding ? "Populating..." : "Restore Default Factory Parts"}
+              </button>
+              <button type="button" onClick={openCreateModal} className={styles.btnPrimary}>
+                Add New Part
+              </button>
+            </div>
           </div>
         ) : (
           <>
@@ -544,7 +619,7 @@ export default function AdminGalleryPage() {
                       value={form.category}
                       onChange={(e) => setForm({ ...form, category: e.target.value })}
                     >
-                      {CATEGORIES.filter((c) => c !== "All").map((cat) => (
+                      {categories.filter((c) => c !== "All").map((cat) => (
                         <option key={cat} value={cat}>
                           {cat}
                         </option>

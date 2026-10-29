@@ -20,11 +20,11 @@ export async function GET(request: NextRequest) {
   try {
     await connectToDatabase();
     const { searchParams } = new URL(request.url);
-    const category = searchParams.get("category");
+    const category = searchParams.get("category")?.trim();
     const filter: Record<string, unknown> = {};
 
-    if (category && category !== "all") {
-      filter.category = category;
+    if (category && category.toLowerCase() !== "all") {
+      filter.category = new RegExp(`^${category.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i");
     }
 
     const items = await GalleryItem.find(filter).sort({ order: 1, createdAt: -1 }).lean();
