@@ -46,7 +46,36 @@ const benefits = [
   },
 ];
 
-export default function CareersPage() {
+import { connectToDatabase, isDbConfigured } from "@/lib/server/db";
+import { CareerJob } from "@/lib/server/models/CareerJob";
+
+export const revalidate = 60;
+
+export default async function CareersPage() {
+  let activeJobs: Array<{
+    _id: string;
+    title: string;
+    department: string;
+    location: string;
+    jobType: string;
+    experience: string;
+    openings: number;
+    description: string;
+    requirements: string[];
+  }> = [];
+
+  if (isDbConfigured()) {
+    try {
+      await connectToDatabase();
+      const docs = await CareerJob.find({ status: "active" })
+        .sort({ order: 1, createdAt: -1 })
+        .lean();
+      activeJobs = JSON.parse(JSON.stringify(docs));
+    } catch (err) {
+      console.error("[careers-page] Could not load active jobs:", err);
+    }
+  }
+
   return (
     <>
       {/* ---------- Careers Hero Section ---------- */}
@@ -76,6 +105,85 @@ export default function CareersPage() {
               ))}
             </div>
           </div>
+
+          {/* ---------- Live Job Openings ---------- */}
+          {activeJobs.length > 0 && (
+            <div className={styles.openingsSection}>
+              <div className={styles.openingsHeader}>
+                <div>
+                  <h2 className={styles.openingsTitle}>
+                    Open Positions
+                  </h2>
+                  <p className={styles.openingsSubtitle}>
+                    Explore precision manufacturing career opportunities at our Hyderabad manufacturing facility.
+                  </p>
+                </div>
+              </div>
+
+              <div className={styles.jobsGrid}>
+                {activeJobs.map((job) => (
+                  <div key={job._id} className={styles.jobCard}>
+                    <div>
+                      <div className={styles.jobMetaRow}>
+                        <span className={styles.jobDeptPill}>{job.department}</span>
+                      </div>
+
+                      <h3 className={styles.jobTitle}>{job.title}</h3>
+
+                      <div className={styles.jobDetailsRow}>
+                        <span className={styles.jobDetailItem}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                          </svg>
+                          {job.location || "Hyderabad, Telangana"}
+                        </span>
+                        <span className={styles.jobDetailItem}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                          </svg>
+                          {job.jobType}
+                        </span>
+                        <span className={styles.jobDetailItem}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                          </svg>
+                          {job.experience}
+                        </span>
+                      </div>
+
+                      <p className={styles.jobDesc}>{job.description}</p>
+
+                      {job.requirements && job.requirements.length > 0 && (
+                        <ul className={styles.jobReqsList}>
+                          {job.requirements.slice(0, 3).map((r, i) => (
+                            <li key={i} className={styles.jobReqItem}>
+                              <svg className={styles.jobReqIcon} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                              <span>{r}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+
+                    <Link
+                      href={`/careers/apply?position=${encodeURIComponent(job.title)}`}
+                      className={styles.jobApplyBtn}
+                    >
+                      <span>Apply for this Position</span>
+                      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M4 10h12M11 5l5 5-5 5" />
+                      </svg>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className={styles.ctaCard} data-reveal="">
             <div className={styles.ctaTextCol}>

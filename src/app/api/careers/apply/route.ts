@@ -3,6 +3,10 @@ import { mailerConfigured, sendCareerApplicationEmail } from "@/lib/server/maile
 import { rateLimit } from "@/lib/server/rate-limit";
 import { verifyTurnstile } from "@/lib/server/turnstile";
 import { site } from "@/lib/site";
+import { connectToDatabase, isDbConfigured } from "@/lib/server/db";
+import { CareerApplication } from "@/lib/server/models/CareerApplication";
+import fs from "fs/promises";
+import path from "path";
 
 const MAX_FILE_BYTES = 5 * 1024 * 1024; // 5 MB
 const MIN_FILL_MS = 2500;
@@ -104,14 +108,16 @@ export async function POST(request: NextRequest) {
   let resumeBuffer: Buffer | undefined;
   let resumeFilename = "";
 
-  if (!resume || !(resume instanceof File) || resume.size === 0) {
-    errors.resume = "Please upload your resume in PDF format.";
-  } else {
-    const isPdf =
+  if (resume && resume instanceof File && resume.size > 0) {
+    const nameLower = resume.name.toLowerCase();
+    const isValidFormat =
       resume.type === "application/pdf" ||
-      resume.name.toLowerCase().endsWith(".pdf");
-    if (!isPdf) {
-      errors.resume = "Resume must be a PDF document.";
+      nameLower.endsWith(".pdf") ||
+      nameLower.endsWith(".doc") ||
+      nameLower.endsWith(".docx");
+
+    if (!isValidFormat) {
+      errors.resume = "Resume must be a PDF or Word document (.pdf, .doc, .docx).";
     } else if (resume.size > MAX_FILE_BYTES) {
       errors.resume = `Resume file is too large (${(resume.size / (1024 * 1024)).toFixed(1)} MB). Maximum allowed is 5 MB.`;
     } else {
@@ -148,6 +154,44 @@ export async function POST(request: NextRequest) {
   const finalPosition = position === "Other" ? `Other (${otherPosition})` : position;
   const reference = "APP-" + Date.now().toString(36).toUpperCase();
 
+  // Save resume file locally if provided
+  let savedResumeUrl = "";
+  if (resumeBuffer && resumeFilename) {
+    try {
+      const resumesDir = path.join(process.cwd(), "public", "uploads", "resumes");
+      await fs.mkdir(resumesDir, { recursive: true });
+      const safeName = resumeFilename.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const diskFilename = `${reference}-${safeName}`;
+      await fs.writeFile(path.join(resumesDir, diskFilename), resumeBuffer);
+      savedResumeUrl = `/uploads/resumes/${diskFilename}`;
+    } catch (saveErr) {
+      console.error("[career-application] Failed to save resume file to disk:", saveErr);
+    }
+  }
+
+  // Save candidate application in MongoDB
+  if (isDbConfigured()) {
+    try {
+      await connectToDatabase();
+      await CareerApplication.create({
+        reference,
+        fullName,
+        email,
+        phone,
+        position: finalPosition,
+        experience,
+        skills: skills || "",
+        message: message || "",
+        resumeFileName: resumeFilename,
+        resumeUrl: savedResumeUrl,
+        status: "new",
+        sourceIp: ip || "",
+      });
+    } catch (dbErr) {
+      console.error("[career-application] Failed to save application in MongoDB:", dbErr);
+    }
+  }
+
   const applicationPayload = {
     fullName,
     email,
@@ -167,7 +211,7 @@ export async function POST(request: NextRequest) {
   // 8. Delivery
   if (!mailerConfigured()) {
     if (process.env.NODE_ENV !== "production") {
-      console.info("[career-application] SMTP not configured; application received in development:", {
+      console.info("[career-application] SMTP not configured; application saved & received:", {
         reference,
         candidate: fullName,
         email,
@@ -179,6 +223,11 @@ export async function POST(request: NextRequest) {
       });
       return NextResponse.json({ ok: true, reference });
     }
+    // If DB is configured, we saved the application so return success
+    if (isDbConfigured()) {
+      return NextResponse.json({ ok: true, reference });
+    }
+    console.error("[career-application] SMTP is not configured; application could not be delivered.");
     console.error("[career-application] SMTP is not configured; application could not be delivered.");
     return NextResponse.json(
       {

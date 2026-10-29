@@ -861,6 +861,66 @@ a:hover {
   height: 100%;
 }
 
+/* Gallery Pagination Controls */
+.gallery-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--silver-300);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.gallery-pagination__info {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--steel-700);
+  font-weight: 500;
+}
+
+.gallery-pagination__nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gallery-pagination__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 0.75rem;
+  border: 1px solid var(--silver-300);
+  background: var(--white);
+  color: var(--navy-900);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.gallery-pagination__link:hover:not(.is-disabled) {
+  border-color: var(--navy-800);
+  background: var(--navy-900);
+  color: var(--white);
+}
+
+.gallery-pagination__link.is-active {
+  background: var(--navy-800);
+  border-color: var(--navy-800);
+  color: var(--white);
+}
+
+.gallery-pagination__link.is-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 /* ---------- Page header (inner pages) ---------- */
 
 .page-header {

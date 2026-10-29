@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { site } from "@/lib/site";
 import styles from "./apply.module.css";
 
@@ -18,16 +19,34 @@ const EXPERIENCE_LEVELS = ["Fresher", "1–2 years", "3–5 years", "6+ years"] 
 const WHATSAPP_PHONE = "916300026605";
 const DISPLAY_WHATSAPP = "+91 63000 26605";
 
-export default function CareerApplicationPage() {
+function CareerApplicationForm() {
+  const searchParams = useSearchParams();
+  const positionParam = searchParams.get("position");
+
   const [whatsappTriggered, setWhatsappTriggered] = useState(false);
   const [preparedUrl, setPreparedUrl] = useState<string | null>(null);
+
+  // Compute initial position from URL query param
+  const initialPos = (() => {
+    if (!positionParam) return { pos: "", other: "" };
+    const decoded = decodeURIComponent(positionParam).trim();
+    const exactMatch = POSITIONS.find((p) => p.toLowerCase() === decoded.toLowerCase());
+    if (exactMatch) return { pos: exactMatch, other: "" };
+    const partialMatch = POSITIONS.find(
+      (p) =>
+        p.toLowerCase().includes(decoded.toLowerCase()) ||
+        decoded.toLowerCase().includes(p.toLowerCase())
+    );
+    if (partialMatch) return { pos: partialMatch, other: "" };
+    return { pos: "Other", other: decoded };
+  })();
 
   // Form State
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [position, setPosition] = useState("");
-  const [otherPosition, setOtherPosition] = useState("");
+  const [position, setPosition] = useState(initialPos.pos);
+  const [otherPosition, setOtherPosition] = useState(initialPos.other);
   const [experience, setExperience] = useState("");
   const [skills, setSkills] = useState("");
   const [message, setMessage] = useState("");
@@ -37,6 +56,11 @@ export default function CareerApplicationPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const bannerRef = useRef<HTMLDivElement>(null);
+  const startedAt = useRef<number>(0);
+
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
 
   function validateClient(): boolean {
     const nextErrors: Record<string, string> = {};
@@ -73,7 +97,7 @@ export default function CareerApplicationPage() {
     return Object.keys(nextErrors).length === 0;
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!validateClient()) {
@@ -83,6 +107,32 @@ export default function CareerApplicationPage() {
     const selectedPosition = position === "Other" ? otherPosition.trim() : position;
     const qualificationsText = skills.trim() || "Not specified";
     const messageText = message.trim() || "None";
+
+    // Silently save application to database for admin leads portal
+    try {
+      const fd = new FormData();
+      fd.append("fullName", fullName.trim());
+      fd.append("email", email.trim());
+      fd.append("phone", phone.trim());
+      fd.append("position", position);
+      if (position === "Other") {
+        fd.append("otherPosition", otherPosition.trim());
+      }
+      fd.append("experience", experience);
+      fd.append("skills", skills.trim());
+      fd.append("message", message.trim());
+      fd.append("consent", "true");
+      fd.append("startedAt", String(startedAt.current || Date.now() - 3000));
+
+      fetch("/api/careers/apply", {
+        method: "POST",
+        body: fd,
+      }).catch((err) => {
+        console.error("Failed to save career lead in background:", err);
+      });
+    } catch (e) {
+      console.error("Error creating career application payload:", e);
+    }
 
     const lines = [
       "Career Application — Varun Industries",
@@ -401,5 +451,19 @@ export default function CareerApplicationPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CareerApplicationPage() {
+  return (
+    <Suspense
+      fallback={
+        <div style={{ padding: "4rem", textAlign: "center", color: "var(--steel-600)" }}>
+          Loading application form...
+        </div>
+      }
+    >
+      <CareerApplicationForm />
+    </Suspense>
   );
 }

@@ -28,6 +28,10 @@ export function Header() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (

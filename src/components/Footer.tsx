@@ -1,12 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { legalNavigation, mapsUrl, navigation, site } from "@/lib/site";
 import footerLogo from "../../public/brand/footer logo.png";
 import { CookiePreferencesButton } from "./CookieConsent";
 import styles from "./Footer.module.css";
 
 export function Footer() {
+  const pathname = usePathname();
   const year = new Date().getFullYear();
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <footer className={styles.footer}>
